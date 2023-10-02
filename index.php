@@ -20,6 +20,4 @@ require_once 'libs/app.php';
 require_once 'libs/errors.php';
 require_once 'libs/success.php';
 
-require_once 'controllers/usuario.php';
-
 $app = new App();
