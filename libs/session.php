@@ -32,7 +32,7 @@ class Session extends Controller
   {
     return [
       "0" => [
-        'login'
+        'login', 'register'
       ],
       "1" => [
         "default" => 'admin',
@@ -40,7 +40,7 @@ class Session extends Controller
       ],
       "2" => [
         "default" => 'user',
-        'main', 'logout',
+        'main', 'logout', 'project',
       ],
     ];
   }

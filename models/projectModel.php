@@ -1,6 +1,6 @@
 <?php
 
-class UserModel extends Model
+class ProjectModel extends Model
 {
   public function __construct()
   {
@@ -8,7 +8,7 @@ class UserModel extends Model
   }
 
   /**
-   * * *`Get user by parameters`*
+   * * *`Get Project by parameters`*
    * @param string $value
    * @param string $colum
    * @return array|false
@@ -16,23 +16,20 @@ class UserModel extends Model
   public function get($value, $colum = "id")
   {
     try {
-      $query = $this->prepare("SELECT * FROM users WHERE $colum = ?;");
+      $query = $this->prepare("SELECT * FROM projects WHERE $colum = ?;");
       $query->execute([$value]);
       return $query->fetch(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
-      error_log("UserModel::get() -> " . $e->getMessage());
+      error_log("ProjectModel::get() -> " . $e->getMessage());
       return false;
     }
   }
 
   /**
-   * *`Get all users without filter and with filter`*
-   *
+   * *`Get all projects without filter and with filter`*
    * @param string $column
    * @param mixed $value
-   * 
    * `If $column and $value is not null, the filter is applied to the query`
-   *
    * @return array|false
    */
   public function getAll($colum = null, $value = null)
@@ -40,69 +37,60 @@ class UserModel extends Model
     try {
       $sql = "";
       if ($colum !== null) $sql = " WHERE $colum = '$value'";
-      $query = $this->query("SELECT u.*, ut.nombre AS tipo FROM users u JOIN users_tipo ut ON u.idtipo_usuario = ut.id$sql;");
+      $query = $this->query("SELECT * FROM projects$sql;");
       $query->execute();
       return $query->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
-      error_log("UserModel::getAll() -> " . $e->getMessage());
+      error_log("ProjectModel::getAll() -> " . $e->getMessage());
       return false;
     }
   }
 
   /**
-   * *`Save a new user`*
-   *
+   * *`Save a new Project`*
    * @param array $data
-   * - 'idtype_user' (int)
-   * - 'names' (string)
-   * - 'email' (string)
-   * - 'password' (string | NULL)
-   * - 'picture' (string)
-   * - 'provider' (string)
-   *
-   * @return int|false
-   * The user id or FALSE on failure.
+   * - 'iduser' (int)
+   * - 'idcategory' (int)
+   * - 'name' (string)
+   * - 'description' (string)
+   * 
+   * @return int|false The Project id or FALSE on failure.
    */
-  public function save($data): ?int
+  public function save($data)
   {
     try {
-      $pdo = $this->connect();
-      $query = $pdo->prepare("INSERT INTO users (idtype_user, names, email, password, picture, provider) VALUES (:idtype_user, :names, :email, :password, :picture, :provider);");
+      $query = $this->prepare("INSERT INTO projects (iduser, idcategory, name, description, slug) VALUES (:iduser, :idcategory, :name, :description, :slug);");
 
-      $query->bindParam(':idtype_user', $data['idtype_user'], PDO::PARAM_INT);
-      $query->bindParam(':names', $data['names'], PDO::PARAM_STR);
-      $query->bindParam(':email', $data['email'], PDO::PARAM_STR);
-      $query->bindParam(':password', $data['password'], PDO::PARAM_STR);
-      $query->bindParam(':picture', $data['picture'], PDO::PARAM_STR);
-      $query->bindParam(':provider', $data['provider'], PDO::PARAM_STR);
+      $query->bindParam(':iduser', $data['iduser'], PDO::PARAM_INT);
+      $query->bindParam(':idcategory', $data['idcategory'], PDO::PARAM_STR);
+      $query->bindParam(':name', $data['name'], PDO::PARAM_STR);
+      $query->bindParam(':description', $data['description'], PDO::PARAM_STR);
+      $query->bindParam(':slug', $data['slug'], PDO::PARAM_STR);
 
-      $query->execute();
-      return $pdo->lastInsertId();
+      return $query->execute();
     } catch (PDOException $e) {
-      error_log("UserModel::save() -> " . $e->getMessage());
+      error_log("ProjectModel::save() -> " . $e->getMessage());
       return false;
     }
   }
 
   /**
-   * *`Update user`*
+   * *`Update Project`*
    * * Example: ["name" => "value"]
    * * This way only the name is updated
    *
    * @param array $data
-   * - 'idtype_user' (int)
-   * - 'names' (string)
-   * - 'email' (string)
-   * - 'password' (string | NULL)
-   * - 'picture' (string)
-   * - 'provider' (string)
+   * - 'iduser' (int)
+   * - 'idcategory' (int)
+   * - 'name' (string)
+   * - 'description' (string)
    *
    * @return bool TRUE on success or FALSE on failure.
    */
   public function update($datos, $id)
   {
     try {
-      $sql = "UPDATE users SET ";
+      $sql = "UPDATE projects SET ";
       foreach ($datos as $columna => $valor) {
         $sql .= "$columna = '$valor', ";
       }
@@ -112,23 +100,23 @@ class UserModel extends Model
       $query = $this->query($sql);
       return $query->execute();
     } catch (PDOException $e) {
-      error_log("UserModel::update() -> " . $e->getMessage());
+      error_log("ProjectModel::update() -> " . $e->getMessage());
       return false;
     }
   }
 
   /**
-   * *`Delete a user`*
+   * *`Delete a Project`*
    * @param int $id
    * @return bool TRUE on success or FALSE on failure.
    */
   public function delete($id)
   {
     try {
-      $query = $this->prepare("DELETE FROM users WHERE id = ?;");
+      $query = $this->prepare("DELETE FROM projects WHERE id = ?;");
       return $query->execute([$id]);
     } catch (PDOException $e) {
-      error_log("UserModel::delete() -> " . $e->getMessage());
+      error_log("ProjectModel::delete() -> " . $e->getMessage());
       return false;
     }
   }

@@ -2,23 +2,11 @@
 
 class Controller
 {
-  public $model;
   public $view;
 
   public function __construct($user)
   {
     $this->view = new View($user);
-  }
-
-  public function loadModel($name)
-  {
-    $url = "models/{$name}Model.php";
-
-    if (file_exists($url)) {
-      require $url;
-      $model = "{$name}Model";
-      $this->model = new $model();
-    }
   }
 
   public function redirect($url, $mensajes = [])
@@ -42,5 +30,20 @@ class Controller
   {
     echo json_encode($data);
     exit();
+  }
+
+  public function generateSlug($texto)
+  {
+    // Reemplaza caracteres especiales y espacios con guiones
+    $slug = strtolower($texto);
+    $slug = preg_replace('/[^a-z0-9-]+/', '-', $slug);
+
+    // Elimina guiones duplicados
+    $slug = preg_replace('/-+/', '-', $slug);
+
+    // Elimina guiones al principio y al final
+    $slug = trim($slug, '-');
+
+    return $slug;
   }
 }

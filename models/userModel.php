@@ -90,16 +90,17 @@ class UserModel extends Model
    * @return int|false
    * The user id or FALSE on failure.
    */
-  public function save($data): ?int
+  public function save($data)
   {
     try {
       $pdo = $this->connect();
       $query = $pdo->prepare("INSERT INTO users (idtype_user, names, email, password, picture, provider) VALUES (:idtype_user, :names, :email, :password, :picture, :provider);");
 
+      $password = $data['password'] ? $this->hash($data['password']) : NULL;
       $query->bindParam(':idtype_user', $data['idtype_user'], PDO::PARAM_INT);
       $query->bindParam(':names', $data['names'], PDO::PARAM_STR);
       $query->bindParam(':email', $data['email'], PDO::PARAM_STR);
-      $query->bindParam(':password', $data['password'], PDO::PARAM_STR);
+      $query->bindParam(':password', $password, PDO::PARAM_STR);
       $query->bindParam(':picture', $data['picture'], PDO::PARAM_STR);
       $query->bindParam(':provider', $data['provider'], PDO::PARAM_STR);
 
@@ -131,6 +132,7 @@ class UserModel extends Model
     try {
       $sql = "UPDATE users SET ";
       foreach ($datos as $columna => $valor) {
+        if ($columna == "password") $valor = $this->hash($valor);
         $sql .= "$columna = '$valor', ";
       }
 
@@ -158,5 +160,10 @@ class UserModel extends Model
       error_log("UserModel::delete() -> " . $e->getMessage());
       return false;
     }
+  }
+
+  public function hash($password)
+  {
+    return password_hash($password, PASSWORD_DEFAULT, ["cost" => 10]);
   }
 }

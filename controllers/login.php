@@ -26,7 +26,7 @@ class Login extends Session
       $this->redirect('', ["error" => Errors::ERROR_LOGIN_AUTHENTICATE_EMPTY]);
     }
 
-    $user = $this->model->login($_POST['email'], $_POST['password']);
+    $user = $this->userModel->login($_POST['email'], $_POST['password']);
 
     if ($user !== NULL) {
       $this->initialize($user, ["success" => "Bienvenido"]);
@@ -55,6 +55,7 @@ class Login extends Session
       "names" => $_POST['names'],
       "email" => $_POST['email'],
       "password" => NULL,
+      "phone" => NULL,
       "picture" => $_POST['picture'],
       "provider" => explode(".", $_POST['provider'])[0],
     ];

@@ -1,6 +1,6 @@
 <?php require_once 'views/layout/head.php'; ?>
 
-<link rel="stylesheet" href="<?= URL ?>public/css/style.css">
+<link rel="stylesheet" href="<?= URL ?>public/css/log.css">
 
 <?php require_once 'views/layout/header.php'; ?>
 
@@ -8,21 +8,27 @@
 	<?= $this->showMessages() ?>
 
 	<form action="<?= URL ?>login/auth" method="post">
-		<div>
+		<h1 class="title">Login</h1>
+		<label>
+			<i class="fas fa-solid fa-user"></i>
 			<input type="email" placeholder="Correo" name="email" required>
-		</div>
-		<div>
+		</label>
+		<label>
+			<i class="fas fa-solid fa-lock"></i>
 			<input type="password" placeholder="Contraseña" name="password" required>
-		</div>
-		<div>
-			<button type="submit">Iniciar Sesión</button>
-		</div>
+		</label>
+		<a href="<?= URL ?>forgot.html" class="link">Forgot your password?</a>
+		<a href="<?= URL ?>register" class="link">Register</a>
+
+		<button type="submit" id="button">Login</button>
 	</form>
 
 	<form action="<?= URL ?>login/authSocialNetwork" id="form_social" method="post">
-		<button id="google">Login con Google</button>
-		<!-- <button id="facebook">Login con Facebook</button> -->
-		<button id="github">Login con GitHub</button>
+		<div>
+			<button id="google">Login with Google</button>
+			<!-- <button id="facebook">Login with Facebook</button> -->
+			<button id="github">Login with GitHub</button>
+		</div>
 	</form>
 </div>
 

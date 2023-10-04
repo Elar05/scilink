@@ -24,7 +24,7 @@ class App
       require_once $fileController;
 
       $controller = new $url[0]($url[0]);
-      $controller->loadModel($url[0]);
+      // $controller->loadModel($url[0]);
 
       // si hay un metodo
       if (isset($url[1])) {

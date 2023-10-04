@@ -2,9 +2,14 @@
 
 class User extends Session
 {
+  public $model;
+
   public function __construct($url)
   {
     parent::__construct($url);
+
+    require_once 'models/userModel.php';
+    $this->model = new UserModel;
   }
 
   public function render()
@@ -57,23 +62,23 @@ class User extends Session
     }
 
     if (!preg_match("/^[\p{L}]+$/u", $_POST['names'])) {
-      $this->response(["error" => ""]);
+      $this->redirect('register', ["error" => Errors::ERROR_REGISTER_USER_NAMES]);
     }
     if (!preg_match("/^[a-zA-Z0-9@._- ]+$/", $_POST['password'])) {
-      $this->response(["error" => ""]);
+      $this->redirect('register', ["error" => Errors::ERROR_REGISTER_USER_PASSWORD]);
     }
     if (!preg_match("/^[0-9]+$/", $_POST['phone'])) {
-      $this->response(["error" => ""]);
+      $this->redirect('register', ["error" => Errors::ERROR_REGISTER_USER_PHONE]);
     }
     if (!preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $_POST['email'])) {
-      $this->response(["error" => ""]);
+      $this->redirect('register', ["error" => Errors::ERROR_REGISTER_USER_EMAIL]);
     }
 
     if ($this->model->save([
       'idtipo_user' => 2,
       'names' => $_POST['names'],
       'email' => $_POST['email'],
-      'password' => $this->hash($_POST['password']),
+      'password' => $_POST['password'],
       'phone' => $_POST['phone'],
     ])) {
       $this->response(["success" => "Registered user"]);
@@ -125,7 +130,7 @@ class User extends Session
       'phone' => $_POST['phone'],
     ], $_POST['id'])) {
       if (!empty($_POST['password']))
-        $this->model->update(['password' => $this->hash($_POST['password'])]);
+        $this->model->update(['password' => $_POST['password']], $_POST['id']);
 
       $this->response(["success" => "user actualizado"]);
     } else {
@@ -151,10 +156,5 @@ class User extends Session
     require_once 'models/userTiposModel.php';
     $tipos = new UserTypesModel();
     return $tipos->getAll();
-  }
-
-  public function hash($password)
-  {
-    return password_hash($password, PASSWORD_DEFAULT, ["cost" => 10]);
   }
 }

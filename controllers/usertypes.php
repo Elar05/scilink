@@ -2,9 +2,14 @@
 
 class UserTypes extends Session
 {
+  public $model;
+
   public function __construct($url)
   {
     parent::__construct($url);
+
+    require_once 'models/userTypesModel.php';
+    $this->model = new UserTypesModel;
   }
 
   public function render()

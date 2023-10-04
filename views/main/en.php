@@ -9,20 +9,20 @@
       <input type="text" placeholder="Buscar...">
     </div>
     <ul>
-      <li><a href="#">Inicio</a></li>
-      <li><a href="#">Idioma <i class="fas fa-caret-down"></i></a>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Language <i class="fas fa-caret-down"></i></a>
         <div class="dropdown-menu">
           <ul>
-            <li><a href="#">Inglés</a></li>
-            <li><a href="#">Español</a></li>
+            <li><a href="#">English</a></li>
+            <li><a href="#">Spanish</a></li>
           </ul>
         </div>
 
       <li><a href="#">Usuario <i class="fas fa-caret-down"></i></a>
         <div class="dropdown-menu">
           <ul>
-            <li><a href="#">Ingresar</a></li>
-            <li><a href="#">Registrarse</a></li>
+            <li><a href="#">Login</a></li>
+            <li><a href="#">Register</a></li>
           </ul>
         </div>
       </li>
@@ -39,50 +39,49 @@
     </div>
   </div>
 
-
   <div class="container">
     <div class="flexbox-item">
-      <img src="<?= URL ?>public/img/a.jpg" alt="Imagen 1">
+      <img src="./img/BREED Hero_0112_schnauzer_standard.jpg" alt="Imagen 1">
       <p>Texto para la imagen 1</p>
       <button>Ver detalles</button>
     </div>
     <div class="flexbox-item">
-      <img src="<?= URL ?>public/img/a.jpg" alt="Imagen 2">
+      <img src="imagen2.jpg" alt="Imagen 2">
       <p>Texto para la imagen 2</p>
       <button>Ver detalles</button>
     </div>
     <div class="flexbox-item">
-      <img src="<?= URL ?>public/img/a.jpg" alt="Imagen 3">
+      <img src="imagen3.jpg" alt="Imagen 3">
       <p>Texto para la imagen 3</p>
       <button>Ver detalles</button>
     </div>
     <div class="flexbox-item">
-      <img src="<?= URL ?>public/img/a.jpg" alt="Imagen 1">
+      <img src="imagen1.jpg" alt="Imagen 1">
       <p>Texto para la imagen 1</p>
       <button>Ver detalles</button>
     </div>
     <div class="flexbox-item">
-      <img src="<?= URL ?>public/img/a.jpg" alt="Imagen 2">
+      <img src="imagen2.jpg" alt="Imagen 2">
       <p>Texto para la imagen 2</p>
       <button>Ver detalles</button>
     </div>
     <div class="flexbox-item">
-      <img src="<?= URL ?>public/img/a.jpg" alt="Imagen 3">
+      <img src="imagen3.jpg" alt="Imagen 3">
       <p>Texto para la imagen 3</p>
       <button>Ver detalles</button>
     </div>
     <div class="flexbox-item">
-      <img src="<?= URL ?>public/img/a.jpg" alt="Imagen 1">
+      <img src="imagen1.jpg" alt="Imagen 1">
       <p>Texto para la imagen 1</p>
       <button>Ver detalles</button>
     </div>
     <div class="flexbox-item">
-      <img src="<?= URL ?>public/img/a.jpg" alt="Imagen 2">
+      <img src="imagen2.jpg" alt="Imagen 2">
       <p>Texto para la imagen 2</p>
       <button>Ver detalles</button>
     </div>
     <div class="flexbox-item">
-      <img src="<?= URL ?>public/img/a.jpg" alt="Imagen 3">
+      <img src="imagen3.jpg" alt="Imagen 3">
       <p>Texto para la imagen 3</p>
       <button>Ver detalles</button>
     </div>
