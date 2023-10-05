@@ -47,6 +47,24 @@ class ProjectModel extends Model
   }
 
   /**
+   * *`Get all projects that are not the logged in user`*
+   * * Feed
+   * @param int $iduser
+   * @return array|false
+   */
+  public function getLastProjects($iduser)
+  {
+    try {
+      $query = $this->query("SELECT * FROM projects WHERE iduser != $iduser ORDER BY created_at DESC LIMIT 10;");
+      $query->execute();
+      return $query->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+      error_log('ProjectModel::getLastProjects() -> ' . $e->getMessage());
+      return false;
+    }
+  }
+
+  /**
    * *`Save a new Project`*
    * @param array $data
    * - 'iduser' (int)
@@ -59,13 +77,14 @@ class ProjectModel extends Model
   public function save($data)
   {
     try {
-      $query = $this->prepare("INSERT INTO projects (iduser, idcategory, name, description, slug) VALUES (:iduser, :idcategory, :name, :description, :slug);");
+      $query = $this->prepare("INSERT INTO projects (iduser, idcategory, name, description, slug, url) VALUES (:iduser, :idcategory, :name, :description, :slug, :url);");
 
       $query->bindParam(':iduser', $data['iduser'], PDO::PARAM_INT);
       $query->bindParam(':idcategory', $data['idcategory'], PDO::PARAM_STR);
       $query->bindParam(':name', $data['name'], PDO::PARAM_STR);
       $query->bindParam(':description', $data['description'], PDO::PARAM_STR);
       $query->bindParam(':slug', $data['slug'], PDO::PARAM_STR);
+      $query->bindParam(':url', $data['url'], PDO::PARAM_STR);
 
       return $query->execute();
     } catch (PDOException $e) {

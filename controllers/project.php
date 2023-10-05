@@ -39,21 +39,17 @@ class Project extends Session
 
     $slug = $this->generateSlug($_POST['name']);
 
-    $url = "";
+    $url = NULL;
     if (!empty($_FILES["image"])) {
       $image = $_FILES["image"];
 
       $types = ["jpg", "png", "webp", "jpeg"];
       $type = pathinfo($image["name"], PATHINFO_EXTENSION);
 
-      if (!in_array($type, $types)) {
-        $this->response(["error" => "The file type is not valid."]);
-      }
+      if (!in_array($type, $types)) $this->response(["error" => "The file type is not valid."]);
 
       $folder = "public/img/projects/{$this->userId}/";
-      if (!file_exists($folder)) {
-        mkdir($folder, 0777, true);
-      }
+      if (!file_exists($folder)) mkdir($folder, 0777, true);
 
       $url = $folder . str_replace("-", "_", $slug) . ".$type";
       if (move_uploaded_file($image['tmp_name'], $url)) {

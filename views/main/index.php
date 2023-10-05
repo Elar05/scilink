@@ -17,7 +17,7 @@
             <li><a href="#">Español</a></li>
           </ul>
         </div>
-
+      </li>
       <li><a href="#">Usuario <i class="fas fa-caret-down"></i></a>
         <div class="dropdown-menu">
           <ul>
@@ -26,66 +26,27 @@
           </ul>
         </div>
       </li>
+    </ul>
   </div>
 
   <div class="flex">
     <div class="contenedor">
       <ul class="flex-contenedor">
-        <li><a href="#">Web</a></li>
-        <li><a href="#">Ciencia</a></li>
-        <li><a href="#">Hardware</a></li>
-        <li><a href="#">Análisis</a></li>
+        <?php foreach ($this->d['categories'] as $category) : ?>
+          <li><a href="#"><?= $category['name'] ?></a></li>
+        <?php endforeach; ?>
       </ul>
     </div>
   </div>
 
-
   <div class="container">
-    <div class="flexbox-item">
-      <img src="<?= URL ?>public/img/a.jpg" alt="Imagen 1">
-      <p>Texto para la imagen 1</p>
-      <button>Ver detalles</button>
-    </div>
-    <div class="flexbox-item">
-      <img src="<?= URL ?>public/img/a.jpg" alt="Imagen 2">
-      <p>Texto para la imagen 2</p>
-      <button>Ver detalles</button>
-    </div>
-    <div class="flexbox-item">
-      <img src="<?= URL ?>public/img/a.jpg" alt="Imagen 3">
-      <p>Texto para la imagen 3</p>
-      <button>Ver detalles</button>
-    </div>
-    <div class="flexbox-item">
-      <img src="<?= URL ?>public/img/a.jpg" alt="Imagen 1">
-      <p>Texto para la imagen 1</p>
-      <button>Ver detalles</button>
-    </div>
-    <div class="flexbox-item">
-      <img src="<?= URL ?>public/img/a.jpg" alt="Imagen 2">
-      <p>Texto para la imagen 2</p>
-      <button>Ver detalles</button>
-    </div>
-    <div class="flexbox-item">
-      <img src="<?= URL ?>public/img/a.jpg" alt="Imagen 3">
-      <p>Texto para la imagen 3</p>
-      <button>Ver detalles</button>
-    </div>
-    <div class="flexbox-item">
-      <img src="<?= URL ?>public/img/a.jpg" alt="Imagen 1">
-      <p>Texto para la imagen 1</p>
-      <button>Ver detalles</button>
-    </div>
-    <div class="flexbox-item">
-      <img src="<?= URL ?>public/img/a.jpg" alt="Imagen 2">
-      <p>Texto para la imagen 2</p>
-      <button>Ver detalles</button>
-    </div>
-    <div class="flexbox-item">
-      <img src="<?= URL ?>public/img/a.jpg" alt="Imagen 3">
-      <p>Texto para la imagen 3</p>
-      <button>Ver detalles</button>
-    </div>
+    <?php foreach ($this->d['lastProjects'] as $project) : ?>
+      <div class="flexbox-item">
+        <img src="<?= URL . $project['url'] ?>" alt="Project Image">
+        <p><?= $project['name'] ?></p>
+        <a href="<?= URL . 'project/show/' . $project['slug'] ?>">Details</a>
+      </div>
+    <?php endforeach; ?>
   </div>
 </div>
 
