@@ -4,6 +4,8 @@ class Project extends Session
 {
   public $model;
   public $categoryModel;
+  public $likeModel;
+  public $commentModel;
 
   public function __construct($url)
   {
@@ -14,12 +16,18 @@ class Project extends Session
 
     require_once 'models/categoryModel.php';
     $this->categoryModel = new CategoryModel;
+
+    require_once 'models/likeModel.php';
+    $this->likeModel = new LikeModel;
+
+    require_once 'models/commentModel.php';
+    $this->commentModel = new CommentModel;
   }
 
   public function render()
   {
     $this->view->render('project/index', [
-      "projects" => $this->model->getAll("iduser", $this->userId),
+      "projects" => $this->model->getAll("p.iduser", $this->userId),
     ]);
   }
 
@@ -82,7 +90,10 @@ class Project extends Session
     if (empty($project)) {
       new Errores;
     }
-    $this->view->render('project/show', ['project' => $project]);
+    $this->view->render('project/show', [
+      'project' => $project,
+      "comments" => $this->commentModel->getAll("c.idproject", $project['id'])
+    ]);
   }
 
   public function edit($params)

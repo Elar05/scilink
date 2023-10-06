@@ -8,15 +8,35 @@ class ProjectModel extends Model
   }
 
   /**
-   * * *`Get Project by parameters`*
+   * * *`Get Project by parameter`*
    * @param string $value
    * @param string $colum
    * @return array|false
    */
-  public function get($value, $colum = "id")
+  public function get($value, $colum = "p.id")
   {
     try {
-      $query = $this->prepare("SELECT * FROM projects WHERE $colum = ?;");
+      $query = $this->prepare(
+        "SELECT projects.*, (
+          SELECT COUNT(id)
+          FROM likes
+          WHERE idproject = projects.id
+        ) AS likes, (
+          SELECT COUNT(id)
+          FROM comments
+          WHERE idproject = projects.id
+        ) AS comments, (
+          SELECT name
+          FROM categories
+          WHERE id = projects.idcategory
+        ) AS category, (
+          SELECT names
+          FROM users
+          WHERE id = projects.iduser
+        ) AS user
+        FROM projects
+        WHERE $colum = ?;"
+      );
       $query->execute([$value]);
       return $query->fetch(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
@@ -36,8 +56,8 @@ class ProjectModel extends Model
   {
     try {
       $sql = "";
-      if ($colum !== null) $sql = " WHERE $colum = '$value'";
-      $query = $this->query("SELECT * FROM projects$sql;");
+      if ($colum !== null and $value !== null) $sql = "WHERE $colum = '$value'";
+      $query = $this->query("SELECT p.*, COUNT(l.id) AS likes, COUNT(c.id) AS comments FROM projects p LEFT JOIN likes l ON p.id = l.idproject LEFT JOIN comments c ON p.id = c.idproject $sql GROUP BY p.id;");
       $query->execute();
       return $query->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
@@ -55,7 +75,7 @@ class ProjectModel extends Model
   public function getLastProjects($iduser)
   {
     try {
-      $query = $this->query("SELECT * FROM projects WHERE iduser != $iduser ORDER BY created_at DESC LIMIT 10;");
+      $query = $this->query("SELECT p.*, COUNT(l.id) AS likes, COUNT(c.id) AS comments FROM projects p LEFT JOIN likes l ON p.id = l.idproject LEFT JOIN comments c ON p.id = c.idproject WHERE p.iduser != $iduser GROUP BY p.id ORDER BY p.created_at DESC LIMIT 10;");
       $query->execute();
       return $query->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {

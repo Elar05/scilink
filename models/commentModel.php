@@ -26,11 +26,22 @@ class CommentModel extends Model
 
   /**
    * *`Get all Comment`*
+   *
+   * @param string $column
+   * @param string $value
+   * @return array|null
    */
-  public function getAll(): ?array
+  public function getAll($column = null, $value = null): ?array
   {
     try {
-      $query = $this->query("SELECT * FROM comments;");
+      $sql = "";
+      if ($column !== null and $value !== null) $sql = "WHERE $column = '$value'";
+      $query = $this->query(
+        "SELECT c.*, u.names AS user
+        FROM comments c
+        INNER JOIN users u ON c.iduser = u.id
+        $sql;"
+      );
       $query->execute();
       return $query->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {

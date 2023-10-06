@@ -68,14 +68,14 @@ class View
   public function showError()
   {
     if (array_key_exists('error', $this->d)) {
-      echo '<div class="alert alert-danger">' . $this->d['error'] . '</div>';
+      echo '<div class="p-t-10 p-b-10 alert-danger">' . $this->d['error'] . '</div>';
     }
   }
 
   public function showSuccess()
   {
     if (array_key_exists('success', $this->d)) {
-      echo '<div class="alert alert-success">' . $this->d['success'] . '</div>';
+      echo '<div class="p-t-10 p-b-10 alert-success">' . $this->d['success'] . '</div>';
     }
   }
 }

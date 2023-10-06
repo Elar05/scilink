@@ -36,7 +36,7 @@ class Session extends Controller
       ],
       "1" => [
         "default" => 'admin',
-        'main', 'logout',
+        'main', 'logout', 'project',
       ],
       "2" => [
         "default" => 'user',

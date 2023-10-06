@@ -10,6 +10,7 @@ class LikeModel extends Model
   /**
    * *`Get Like by id`*
    * @param int $id
+   * @throws PDOException
    */
   public function get($id): ?array
   {
@@ -25,6 +26,7 @@ class LikeModel extends Model
 
   /**
    * *`Get all Like`*
+   * @throws PDOException
    */
   public function getAll(): ?array
   {
@@ -43,6 +45,7 @@ class LikeModel extends Model
    * @param int $iduser
    * @param int $idproject
    * @return bool TRUE on success, FALSE on failure
+   * @throws PDOException
    */
   public function save($iduser, $idproject): bool
   {
@@ -61,6 +64,7 @@ class LikeModel extends Model
    * *`Delete Like`*
    * @param int $id
    * @return bool TRUE on success, FALSE on failure
+   * @throws PDOException
    */
   public function delete($id): bool
   {
