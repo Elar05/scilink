@@ -13,7 +13,7 @@ class ProjectModel extends Model
    * @param string $colum
    * @return array|false
    */
-  public function get($value, $colum = "p.id")
+  public function get($value, $colum = "p.id", $iduser)
   {
     try {
       $query = $this->prepare(
@@ -33,11 +33,15 @@ class ProjectModel extends Model
           SELECT names
           FROM users
           WHERE id = projects.iduser
-        ) AS user
+        ) AS user, (
+          SELECT iduser
+          FROM participants
+          WHERE iduser = :iduser
+        ) AS participant
         FROM projects
-        WHERE $colum = ?;"
+        WHERE $colum = :value;"
       );
-      $query->execute([$value]);
+      $query->execute(["value" => $value, "iduser" => $iduser]);
       return $query->fetch(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
       error_log("ProjectModel::get() -> " . $e->getMessage());

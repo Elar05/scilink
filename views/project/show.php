@@ -1,11 +1,10 @@
 <?php require_once 'views/layout/head.php'; ?>
-<link rel="stylesheet" href="<?= URL ?>public/css/info1.css" />
 <?php require_once 'views/layout/header.php'; ?>
 <?php
 $project = $this->d['project'];
 $comments = $this->d['comments'];
 ?>
-<div class="container mt-5">
+<div class="container mt-3">
   <div class="row">
     <div class="col-lg-8 mx-auto">
       <!-- Post content-->
@@ -21,7 +20,9 @@ $comments = $this->d['comments'];
             <!-- Post categories-->
             <span class="badge bg-secondary text-decoration-none link-light"><?= $project['category'] ?></span>
 
-            <button class="btn btn-success">Aplicar <i class="fas fa-plus"></i></button>
+            <button class="btn btn-success" id="<?= $this->d['textId'] ?>" data-project="<?= $project['id'] ?>">
+              <?= $this->d['text'] ?>
+            </button>
           </div>
         </header>
         <!-- Preview image figure-->
@@ -46,39 +47,42 @@ $comments = $this->d['comments'];
         <div class="card bg-light">
           <div class="card-body">
             <!-- Comment form-->
-            <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Leave a comment"></textarea></form>
+            <form class="mb-4" action="<?= URL ?>comment/add">
+              <input type="hidden" name="project" value="<?= $project['id'] ?>">
+              <textarea class="form-control" rows="3" placeholder="Leave a comment"></textarea>
+
+              <div class="text-end">
+                <button class="mt-2 btn btn-primary" id="addComment">Comment <i class="fas fa-plus"></i></button>
+              </div>
+            </form>
             <!-- Single comment-->
-            <?php
-            if (count($comments) > 0) :
-              foreach ($comments as $comment) : ?>
-                <div class="d-flex">
-                  <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                  <div class="ms-3">
-                    <div class="fw-bold"><?= $comment['user'] ?></div>
-                    <?= $comment['comment'] ?>
-                  </div>
-                </div>
+            <div id="content_comments">
               <?php
-              endforeach;
-            else : ?>
-              <div class="">No comments</div>
-            <?php endif; ?>
+              if (count($comments) > 0) :
+                foreach ($comments as $comment) : ?>
+                  <div class="d-flex">
+                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                    <div class="ms-3">
+                      <div class="fw-bold"><?= $comment['user'] ?></div>
+                      <?= $comment['comment'] ?>
+                    </div>
+                  </div>
+                <?php
+                endforeach;
+              else : ?>
+                <div class="">No comments</div>
+              <?php endif; ?>
+            </div>
           </div>
         </div>
       </section>
     </div>
   </div>
 </div>
-<!-- Footer-->
-<footer class="py-5 bg-dark">
-  <div class="container">
-    <p class="m-0 text-center text-white">Copyright &copy; SciLink 2023</p>
-  </div>
-</footer>
-
-
-<?php require_once 'views/layout/foot.php'; ?>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <?php require_once 'views/layout/footer.php'; ?>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="<?= URL ?>public/js/project.js" type="module"></script>
+
+<?php require_once 'views/layout/foot.php'; ?>

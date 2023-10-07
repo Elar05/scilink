@@ -25,7 +25,7 @@ class Session extends Controller
 
     $this->validateSession();
 
-    parent::__construct(["name" => $this->user, "userType" => $this->userType]);
+    parent::__construct(["id" => $this->userId, "name" => $this->user, "userType" => $this->userType]);
   }
 
   public function sites()
@@ -40,7 +40,7 @@ class Session extends Controller
       ],
       "2" => [
         "default" => 'user',
-        'main', 'logout', 'project',
+        'main', 'logout', 'project', 'participant',
       ],
     ];
   }

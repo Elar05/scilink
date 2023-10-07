@@ -6,6 +6,7 @@ class Project extends Session
   public $categoryModel;
   public $likeModel;
   public $commentModel;
+  public $participantModel;
 
   public function __construct($url)
   {
@@ -82,17 +83,26 @@ class Project extends Session
 
   public function show($params)
   {
-    if (!isset($params)) {
-      new Errores;
-    }
+    if (!isset($params)) new Errores;
+
     $slug = $params[0];
-    $project = $this->model->get($slug, "slug");
-    if (empty($project)) {
-      new Errores;
+    $project = $this->model->get($slug, "slug", $this->userId);
+
+    if (empty($project)) new Errores;
+
+    if ($project['participant'] === $this->userId) {
+      $text = 'Participating <i class="fas fa-check"></i>';
+      $textId = "";
+    } else {
+      $textId = "applyProject";
+      $text = 'Apply to project <i class="fas fa-plus"></i>';
     }
+
     $this->view->render('project/show', [
       'project' => $project,
-      "comments" => $this->commentModel->getAll("c.idproject", $project['id'])
+      "comments" => $this->commentModel->getAll("c.idproject", $project['id']),
+      "text" => $text,
+      "textId" => $textId,
     ]);
   }
 
