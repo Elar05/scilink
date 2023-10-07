@@ -61,7 +61,20 @@ class ProjectModel extends Model
     try {
       $sql = "";
       if ($colum !== null and $value !== null) $sql = "WHERE $colum = '$value'";
-      $query = $this->query("SELECT p.*, COUNT(l.id) AS likes, COUNT(c.id) AS comments FROM projects p LEFT JOIN likes l ON p.id = l.idproject LEFT JOIN comments c ON p.id = c.idproject $sql GROUP BY p.id;");
+      $query = $this->query(
+        "SELECT p.*,
+          COUNT(l.id) AS likes,
+          COUNT(c.id) AS comments,
+          COUNT(pt.id) AS participants,
+          ct.name AS category
+        FROM projects p
+          LEFT JOIN likes l ON p.id = l.idproject
+          LEFT JOIN comments c ON p.id = c.idproject
+          LEFT JOIN categories ct ON p.idcategory = ct.id
+          LEFT JOIN participants pt ON p.id = pt.idproject
+        $sql
+        GROUP BY p.id;"
+      );
       $query->execute();
       return $query->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
@@ -76,10 +89,33 @@ class ProjectModel extends Model
    * @param int $iduser
    * @return array|false
    */
-  public function getLastProjects($iduser)
+  public function getLastProjects($iduser, $category = null, $name = null, $limit = false)
   {
     try {
-      $query = $this->query("SELECT p.*, COUNT(l.id) AS likes, COUNT(c.id) AS comments FROM projects p LEFT JOIN likes l ON p.id = l.idproject LEFT JOIN comments c ON p.id = c.idproject WHERE p.iduser != $iduser GROUP BY p.id ORDER BY p.created_at DESC LIMIT 10;");
+      $sql = "SELECT p.*,
+        COUNT(l.id) AS likes,
+        COUNT(c.id) AS comments,
+        COUNT(pt.id) AS participants,
+        ct.name AS category
+      FROM projects p
+        LEFT JOIN likes l ON p.id = l.idproject
+        LEFT JOIN comments c ON p.id = c.idproject
+        LEFT JOIN categories ct ON p.idcategory = ct.id
+        LEFT JOIN participants pt ON p.id = pt.idproject
+        WHERE p.iduser != $iduser";
+
+      if ($category !== null) {
+        $category = implode("','", $category);
+        $sql .= " AND ct.name IN ('" . $category . "')";
+      }
+
+      if ($name !== null) $sql .= " AND p.name LIKE ('%" . $name . "%')";
+
+      $sql .= " GROUP BY p.id ORDER BY p.created_at DESC";
+
+      if($limit) $sql .= " LIMIT 20;";
+
+      $query = $this->query($sql);
       $query->execute();
       return $query->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {

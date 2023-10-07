@@ -82,7 +82,6 @@ $comments = $this->d['comments'];
 
 <?php require_once 'views/layout/footer.php'; ?>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="<?= URL ?>public/js/project.js" type="module"></script>
 
 <?php require_once 'views/layout/foot.php'; ?>

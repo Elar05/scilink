@@ -110,4 +110,16 @@ class Project extends Session
   {
     $this->view->render('project/edit', ['' => '']);
   }
+
+  public function getLastProjects()
+  {
+    $category = $_POST['category'] ?? null;
+    $name = $_POST['name'] ?? null;
+
+    $limit = (empty($category) and empty($name)) ? true : false;
+
+    $projects = $this->model->getLastProjects($this->userId, $category, $name, $limit);
+
+    $this->response($projects);
+  }
 }

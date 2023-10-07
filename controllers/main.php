@@ -19,7 +19,7 @@ class Main extends Session
   function render()
   {
     $this->view->render('main/index', [
-      "lastProjects" => $this->projects->getLastProjects($this->userId),
+      "lastProjects" => $this->projects->getLastProjects($this->userId, null, null, true),
       "categories" => $this->categories->getAll(),
     ]);
   }

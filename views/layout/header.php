@@ -8,6 +8,7 @@
 
     <ul class="p-0 m-0">
       <li class="ps-4"><a href="<?= URL ?>">Home</a></li>
+      <li class="ps-4"><a href="<?= URL ?>project">My Projects</a></li>
       <!-- <li class="ps-4"><a href="#">Idioma <i class="fas fa-caret-down"></i></a>
         <div class="dropdown-menu">
           <ul>
