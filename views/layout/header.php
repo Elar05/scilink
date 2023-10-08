@@ -7,23 +7,26 @@
     </a>
 
     <ul class="p-0 m-0">
-      <li class="ps-4"><a href="<?= URL ?>">Home</a></li>
-      <li class="ps-4"><a href="<?= URL ?>project">My Projects</a></li>
-      <!-- <li class="ps-4"><a href="#">Idioma <i class="fas fa-caret-down"></i></a>
-        <div class="dropdown-menu">
-          <ul>
-            <li><a href="#">Inglés</a></li>
-            <li><a href="#">Español</a></li>
-          </ul>
-        </div>
-      </li> -->
-      <li class="ps-4"><a href="#"><?= $this->user['name'] ?> <i class="fas fa-caret-down"></i></a>
-        <div class="dropdown-menu">
-          <ul>
-            <li><a href="<?= URL ?>profile/in/<?= $this->user['slug'] ?>">Profile</a></li>
-            <li><a href="<?= URL ?>logout">Logout</a></li>
-          </ul>
-        </div>
-      </li>
+      <?php if (isset($_SESSION)) : ?>
+        <li class="ps-4"><a href="<?= URL ?>">Home</a></li>
+        <li class="ps-4"><a href="<?= URL ?>project">My Projects</a></li>
+        <li class="ps-4"><a href="#"><?= $this->user['name'] ?> <i class="fas fa-caret-down"></i></a>
+          <div class="dropdown-menu">
+            <ul>
+              <li><a href="<?= URL ?>profile/in/<?= $this->user['slug'] ?>">Profile</a></li>
+              <li><a href="<?= URL ?>logout">Logout</a></li>
+            </ul>
+          </div>
+        </li>
+      <?php else : ?>
+        <li class="ps-4"><a href="#">User <i class="fas fa-caret-down"></i></a>
+          <div class="dropdown-menu">
+            <ul>
+              <li><a href="<?= URL ?>register">Register</a></li>
+              <li><a href="<?= URL ?>">Login</a></li>
+            </ul>
+          </div>
+        </li>
+      <?php endif; ?>
     </ul>
   </div>

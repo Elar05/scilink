@@ -94,13 +94,14 @@ class UserModel extends Model
   {
     try {
       $pdo = $this->connect();
-      $query = $pdo->prepare("INSERT INTO users (idtype_user, names, email, password, picture, provider, slug) VALUES (:idtype_user, :names, :email, :password, :picture, :provider, :slug);");
+      $query = $pdo->prepare("INSERT INTO users (idtype_user, names, email, password, phone, picture, provider, slug) VALUES (:idtype_user, :names, :email, :password, :phone, :picture, :provider, :slug);");
 
       $password = $data['password'] ? $this->hash($data['password']) : NULL;
       $query->bindParam(':idtype_user', $data['idtype_user'], PDO::PARAM_INT);
       $query->bindParam(':names', $data['names'], PDO::PARAM_STR);
       $query->bindParam(':email', $data['email'], PDO::PARAM_STR);
       $query->bindParam(':password', $password, PDO::PARAM_STR);
+      $query->bindParam(':phone', $data['phone'], PDO::PARAM_STR);
       $query->bindParam(':picture', $data['picture'], PDO::PARAM_STR);
       $query->bindParam(':provider', $data['provider'], PDO::PARAM_STR);
       $query->bindParam(':slug', $data['slug'], PDO::PARAM_STR);

@@ -2,28 +2,84 @@
 
 <?php require_once 'views/layout/header.php'; ?>
 
-<div class="container">
-  <div class="row">
-    <div class="col-8 mx-auto">
-      <h1 class="my-4">Profile</h1>
+<header class="py-1 bg-image-full" style="background-image: url('<?= URL ?>public/img/fondo_user.jpeg')">
+  <div class="text-center my-5">
+    <?php
+    $url = $this->d['user']['picture'] ?? "public/img/profile_user.jpg";
+    ?>
+    <img class="img-fluid rounded-circle mb-4 integrante-img" src="<?= URL . $url ?>" alt="Profile user" />
+    <h1 class="text-white fs-3 fw-bolder"><?= $this->d['user']['names'] ?></h1>
+  </div>
+</header>
 
-      <div id="alertMessage"></div>
+<section class="datos-personales mb-5">
+  <form class="datos-usuario" action="<?= URL ?>profile/update" id="form_profile" method="post">
+    <p style="font-size: 24px; text-align: center;">Tus datos personales</p>
 
-      <form action="<?= URL ?>profile/update" id="form_profile" method="post">
-        <div class="mb-3">
-          <label for="names">Names</label>
-          <input type="text" class="form-control" id="names" name="names" value="<?= $this->d['user']['names'] ?>">
-        </div>
-        <div class="mb-3">
-          <label for="phoe">Phone</label>
-          <input type="text" class="form-control" id="phoe" name="phoe" value="<?= $this->d['user']['phone'] ?>">
-        </div>
+    <div id="alertMessage"></div>
 
-        <div class="d-grid">
-          <button type="submit" class="btn button-project">Save changes</button>
-        </div>
-      </form>
+    <div class="form-input">
+      <label>Nombres</label>
     </div>
+    <input type="text" name="name" value="<?= $this->d['user']['names'] ?>" />
+
+    <div class="form-input">
+      <label>Celular</label>
+    </div>
+    <input type="text" name="phone" value="<?= $this->d['user']['phone'] ?>" />
+
+    <!-- <div class="form-input">
+      <label>Correo electrónico</label>
+    </div>
+    <input type="text" name="email" placeholder="example@mail.com" />
+
+    <div class="form-input">
+      <label>Contraseña</label>
+    </div>
+    <input type="password" name="password" placeholder="j2!qsi!@a" /> -->
+
+    <div class="form-input">
+      <label>Descripción</label>
+    </div>
+    <textarea name="description" id="description" cols="38" rows="5"><?= $this->d['user']['description'] ?></textarea>
+
+    <div class="form-input">
+      <label for="image">Image Profile</label>
+    </div>
+    <input type="file" class="form-control" name="image" id="image">
+
+    <div class="d-grid">
+      <button type="submit" class="btn button-project">Save changes</button>
+    </div>
+  </form>
+</section>
+
+<div class="container">
+  <div class="row g-4 mt-0" id="contentProjects">
+    <?php foreach ($this->d['projects'] as $project) : ?>
+      <div class="col-4">
+        <div class="card">
+          <?php if ($project['url'] != "") : ?>
+            <img src="<?= URL . $project['url'] ?>" alt="Project Image" class="card-img-top">
+          <?php endif; ?>
+
+          <div class="card-body">
+            <h5 class="card-title"><?= $project['name'] ?></h5>
+
+            <div class="d-flex justify-content-between my-3">
+              <span>Likes: <?= $project['likes'] ?></span>
+              <span>Comments: <?= $project['comments'] ?></span>
+              <span>Members: <?= $project['participants'] ?></span>
+            </div>
+            <p class="text-card">Category: <span class="badge bg-secondary text-decoration-none link-light text-uppercase"><?= $project['category'] ?></span></p>
+
+            <div class="d-grid pt-2">
+              <a class="btn button-project text-uppercase" href="<?= URL . 'project/show/' . $project['slug'] ?>">Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    <?php endforeach; ?>
   </div>
 </div>
 

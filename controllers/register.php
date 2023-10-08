@@ -49,6 +49,7 @@ class Register extends Session
       "names" => $_POST['names'],
       "email" => $_POST['email'],
       "password" => $_POST['password'],
+      "picture" => $_POST['phone'],
       "picture" => NULL,
       "provider" => NULL,
       "slug" => $this->generateSlug($_POST['names']) . "-$hash",

@@ -24,8 +24,8 @@ formProfile.addEventListener("submit", function (e) {
             <strong>${data.success}</strong>
           </div>`;
         } else {
-          alert.innerHTML = `<div class="alert alert-success" role="alert">
-            <strong>${data.success}</strong>
+          alert.innerHTML = `<div class="alert alert-error" role="alert">
+            <strong>${data.error}</strong>
           </div>`;
         }
 

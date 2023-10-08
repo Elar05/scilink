@@ -6,8 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
     element.addEventListener("click", filterProjects);
   });
 
-  const filterByName = document.getElementById("name");
-  filterByName.addEventListener("input", filterProjects);
+  const filterByName = document.getElementById("search_projects");
+  filterByName.addEventListener("click", filterProjects);
 });
 
 function filterProjects() {
@@ -20,7 +20,10 @@ function filterProjects() {
     data.append("category[]", category);
   }
 
-  fetch(`${urlBase}project/getLastProjects`, {
+  let url = window.location.href;
+  let last = url.split("/").pop();
+
+  fetch(`${urlBase}${last}/getLastProjects`, {
     method: "POST",
     body: data,
   })
@@ -37,14 +40,27 @@ function filterProjects() {
 
       if (data.length > 0) {
         data.forEach(function (project) {
+          let img =
+            project.url != ""
+              ? `<img src="${urlBase}${project.url}" alt="Project Image" class="card-img-top">`
+              : "";
           projects.innerHTML += `<div class="col">
             <div class="card">
-              <img src="${urlBase}/${project.url}" alt="Project Image" class="card-img-top">
+              ${img}
               <div class="card-body">
                 <h5 class="card-title">${project.name}</h5>
-                <p class="card-text">Likes: ${project.likes} - Comments: ${project.comments}</p>
-                <p class="card-text"><span class="badge bg-secondary text-decoration-none link-light">${project.category}</span></p>
-                <a class="btn btn-info" href="${urlBase}/project/show/${project.slug}">Details <i class="fas fa-share"></i></a>
+                
+                <div class="d-flex justify-content-between my-3">
+                  <span>Likes: ${project.likes}</span>
+                  <span>Comments: ${project.comments}</span>
+                  <span>Members: ${project.participants}</span>
+                </div>
+
+                <p class="text-card">Category: <span class="badge bg-secondary text-decoration-none link-light text-uppercase">Science</span></p>
+
+                <div class="d-grid pt-2">
+                  <a class="btn button-project text-uppercase" href="${urlBase}project/show/${project.slug}">Details</a>
+                </div>
               </div>
             </div>
           </div>`;

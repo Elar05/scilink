@@ -267,3 +267,61 @@ footer {
 .social {
   margin: 0 1rem;
 }
+
+/* Perfil del usuario */
+.datos-personales {
+  margin: 3rem 0;
+}
+
+.datos-usuario {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+}
+
+.datos-usuario input {
+  padding: 0.4rem 0.5rem;
+  width: 20rem;
+}
+
+.integrantes-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 5rem auto;
+}
+
+.integrante-card {
+  display: flex;
+  gap: 1rem;
+  width: calc(50%);
+  margin: 1rem 0;
+}
+
+.integrante-card * {
+  margin: 0.3rem 0;
+}
+
+.integrante-img {
+  border-radius: 50%;
+  width: 134px;
+  height: 134px;
+  object-fit: cover;
+}
+
+.integrante-info {
+  display: flex;
+  flex-direction: column;
+  margin: auto 0;
+}
+
+.integrante-nombres {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.integrante-pais {
+  color: #767676;
+}

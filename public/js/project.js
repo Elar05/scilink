@@ -131,3 +131,39 @@ if (formComment) {
     }
   });
 }
+
+// Add like to project
+const like = document.querySelector("#like");
+if (like) {
+  like.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    const data = new FormData();
+    data.append("idproject", like.dataset.project);
+
+    fetch(`${urlBase}/like/store`, {
+      method: "POST",
+      body: data,
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        let likesSpan = document.querySelector("#likes");
+        let likes = parseInt(likesSpan.textContent);
+        if ("success" in data) {
+          likes++;
+        } else {
+          likes--;
+        }
+
+        likesSpan.textContent = likes;
+      })
+      .catch((error) => {
+        console.error("Fetch error:", error);
+      });
+  });
+}

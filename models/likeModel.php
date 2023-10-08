@@ -12,11 +12,11 @@ class LikeModel extends Model
    * @param int $id
    * @throws PDOException
    */
-  public function get($id): ?array
+  public function get($iduser, $idproject)
   {
     try {
-      $query = $this->prepare("SELECT * FROM likes WHERE id = ?;");
-      $query->execute([$id]);
+      $query = $this->prepare("SELECT * FROM likes WHERE iduser = :idu AND idproject = :idp;");
+      $query->execute(["idu" => $iduser, "idp" => $idproject]);
       return $query->fetch(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
       error_log("LikeModel::get() -> " . $e->getMessage());
@@ -66,11 +66,11 @@ class LikeModel extends Model
    * @return bool TRUE on success, FALSE on failure
    * @throws PDOException
    */
-  public function delete($id): bool
+  public function delete($iduser, $idproject): bool
   {
     try {
-      $query = $this->prepare("DELETE FROM likes WHERE id = ?;");
-      return $query->execute([$id]);
+      $query = $this->prepare("DELETE FROM likes WHERE iduser = :idu AND idproject = :idp;");
+      return $query->execute(["idu" => $iduser, "idp" => $idproject]);
     } catch (PDOException $e) {
       error_log("LikeModel::delete() -> " . $e->getMessage());
       return false;

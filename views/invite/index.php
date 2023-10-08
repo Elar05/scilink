@@ -56,7 +56,7 @@
                   <p class="text-card">Category: <span class="badge bg-secondary text-decoration-none link-light text-uppercase"><?= $project['category'] ?></span></p>
 
                   <div class="d-grid pt-2">
-                    <a class="btn button-project text-uppercase" href='<?= URL ?>project/show/<?= $project['slug'] ?>'>Details</a>
+                    <a class="btn button-project text-uppercase" href='<?= URL ?>invite/show/<?= $project['slug'] ?>'>Details</a>
                   </div>
                 </div>
               </div>

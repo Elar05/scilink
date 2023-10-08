@@ -1,5 +1,5 @@
 <!-- Footer-->
-<footer class="mt-5 py-4">
+<footer class="mt-5 py-5">
   <div class="container d-flex justify-content-center">
     <ul class="list-footer">
       <li>

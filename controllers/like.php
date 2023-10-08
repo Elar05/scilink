@@ -20,9 +20,9 @@ class Like extends Session
 
     $like = $this->model->get($this->userId, $_POST['idproject']);
 
-    if ($like) {
+    if (!empty($like)) {
       $this->model->delete($this->userId, $_POST['idproject']);
-      $this->response(["success" => "Like removed"]);
+      $this->response(["error" => "Like removed"]);
     } else {
       $this->model->save($this->userId, $_POST['idproject']);
       $this->response(["success" => "Like added"]);

@@ -16,12 +16,23 @@
     <?php foreach ($this->d['projects'] as $project) : ?>
       <div class="col">
         <div class="card">
-          <img src="<?= URL . $project['url'] ?>" alt="Project Image" class="card-img-top">
+          <?php if ($project['url'] != "") : ?>
+            <img src="<?= URL . $project['url'] ?>" alt="Project Image" class="card-img-top">
+          <?php endif; ?>
+
           <div class="card-body">
             <h5 class="card-title"><?= $project['name'] ?></h5>
-            <p class="card-text">Likes: <?= $project['likes'] ?> - Comments: <?= $project['comments'] ?> - Members: <?= $project['participants'] ?></p>
-            <p class="card-text"><span class="badge bg-secondary text-decoration-none link-light"><?= $project['category'] ?></span></p>
-            <a class="btn btn-info" href="<?= URL . 'project/show/' . $project['slug'] ?>">Details <i class="fas fa-share"></i></a>
+
+            <div class="d-flex justify-content-between my-3">
+              <span>Likes: <?= $project['likes'] ?></span>
+              <span>Comments: <?= $project['comments'] ?></span>
+              <span>Members: <?= $project['participants'] ?></span>
+            </div>
+            <p class="text-card">Category: <span class="badge bg-secondary text-decoration-none link-light text-uppercase"><?= $project['category'] ?></span></p>
+
+            <div class="d-grid pt-2">
+              <a class="btn button-project text-uppercase" href="<?= URL . 'project/show/' . $project['slug'] ?>">Details</a>
+            </div>
           </div>
         </div>
       </div>

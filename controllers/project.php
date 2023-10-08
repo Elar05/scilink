@@ -124,10 +124,46 @@ class Project extends Session
     $category = $_POST['category'] ?? null;
     $name = $_POST['name'] ?? null;
 
-    $limit = (empty($category) and empty($name)) ? true : false;
+    // $limit = (empty($category) and empty($name)) ? true : false;
 
-    $projects = $this->model->getLastProjects($this->userId, $category, $name, $limit);
+    $projects = $this->model->getLastProjects($this->userId, $category, $name, true);
 
     $this->response($projects);
+  }
+
+  public function saveData()
+  {
+    $data = file_get_contents("feed.json");
+    $data = json_decode($data, true);
+
+    $errores = [];
+    $success = [];
+
+    $idu = 0;
+    foreach ($data['projects'] as $item) {
+      $slug = $this->generateSlug($item['project_name']);
+      $idu++;
+
+      if ($this->model->saveData([
+        "iduser" => $idu,
+        "idcategory" => 1,
+        "name" => $item['project_name'],
+        "description" => $item['project_description'],
+        "slug" => $slug,
+        "url" => "",
+        "link" => $item["project_url_external"],
+        "agency_sponsor" => $item["agency_sponsor"],
+        "fields_of_science" => $item["fields_of_science"],
+        "participation_tasks" => $item["participation_tasks"],
+        "geographic_scope" => $item["geographic_scope"],
+        "keywords" => $item["keywords"]
+      ])) {
+        $success[] = $idu;
+      } else {
+        $errores[] = $idu;
+      }
+    }
+
+    echo count($success) . " - " . count($errores);
   }
 }

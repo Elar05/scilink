@@ -20,11 +20,9 @@ $comments = $this->d['comments'];
             <!-- Post categories-->
             <span class="badge bg-secondary text-decoration-none link-light text-uppercase fs-6"><?= $project['category'] ?></span>
 
-            <?php if ($project['iduser'] != $this->user['id']) : ?>
-              <button class="btn btn-<?= $this->d['class'] ?>" id="<?= $this->d['textId'] ?>" data-project="<?= $project['id'] ?>">
-                <?= $this->d['text'] ?>
-              </button>
-            <?php endif; ?>
+            <a href="<?= URL ?>" class="btn btn-primary">
+              Apply to Project <i class="fas fa-plus"></i>
+            </a>
           </div>
         </header>
         <!-- Preview image figure-->
@@ -70,13 +68,13 @@ $comments = $this->d['comments'];
           </ul>
 
           <p class="fs-5">
-            <button class="btn button-project" id="like" data-project="<?= $project['id'] ?>"><i class="fas fa-thumbs-up m-0 p-0"></i></button>
-            Likes: <span id="likes"><?= $project['likes'] ?></span>
+            <button class="btn button-project"><i class="fas fa-thumbs-up m-0 p-0"></i></button>
+            Likes: <span><?= $project['likes'] ?></span>
           </p>
 
           <p class="fs-5">
             <button class="btn button-project"><i class="fas fa-comment-dots m-0 p-0"></i></button>
-            Comments: <span id="comments"> <?= $project['comments'] ?></span>
+            Comments: <span> <?= $project['comments'] ?></span>
           </p>
         </section>
       </article>
@@ -85,14 +83,11 @@ $comments = $this->d['comments'];
         <div class="card bg-light">
           <div class="card-body">
             <!-- Comment form-->
-            <form class="mb-4" id="form_comment" action="<?= URL ?>comment/add" method="post">
-              <input type="hidden" name="project" value="<?= $project['id'] ?>">
-              <textarea class="form-control" name="comment" rows="3" placeholder="Leave a comment"></textarea>
+            <textarea class="form-control" name="comment" rows="3" placeholder="Leave a comment"></textarea>
 
-              <div class="text-end">
-                <button type="submit" class="mt-2 btn btn-primary">Comment <i class="fas fa-plus"></i></button>
-              </div>
-            </form>
+            <div class="text-end">
+              <a href="<?= URL ?>" class="mt-2 btn btn-primary">Comment <i class="fas fa-plus"></i></a>
+            </div>
             <!-- Single comment-->
             <div id="content_comments">
               <?php
@@ -119,7 +114,5 @@ $comments = $this->d['comments'];
 </div>
 
 <?php require_once 'views/layout/footer.php'; ?>
-
 <script src="<?= URL ?>public/js/project.js" type="module"></script>
-
 <?php require_once 'views/layout/foot.php'; ?>

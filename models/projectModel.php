@@ -21,7 +21,9 @@ class ProjectModel extends Model
         (SELECT COUNT(id) FROM likes WHERE idproject = p.id) AS likes,
         (SELECT COUNT(id) FROM comments WHERE idproject = p.id) AS comments,
         (SELECT name FROM categories WHERE id = p.idcategory) AS category,
-        (SELECT names FROM users WHERE id = p.iduser) AS user
+        (SELECT names FROM users WHERE id = p.iduser) AS user,
+        (SELECT picture FROM users WHERE id = p.iduser) AS url_user,
+        (SELECT slug FROM users WHERE id = p.iduser) AS slug_user
         FROM projects p
         WHERE $colum = :value;"
       );
@@ -76,6 +78,8 @@ class ProjectModel extends Model
   public function getLastProjects($iduser, $category = null, $name = null, $limit = false)
   {
     try {
+      $wUser = "WHERE 1 = 1";
+      if ($iduser > 0) $wUser = "WHERE p.iduser != $iduser";
       $sql = "SELECT p.*,
         COUNT(DISTINCT l.id) AS likes,
         COUNT(DISTINCT c.id) AS comments,
@@ -86,7 +90,8 @@ class ProjectModel extends Model
         LEFT JOIN comments c ON p.id = c.idproject
         LEFT JOIN categories ct ON p.idcategory = ct.id
         LEFT JOIN participants pt ON p.id = pt.idproject
-        WHERE p.iduser != $iduser";
+      $wUser
+      ";
 
       if ($category !== null) {
         $category = implode("','", $category);
@@ -97,7 +102,7 @@ class ProjectModel extends Model
 
       $sql .= " GROUP BY p.id ORDER BY p.created_at DESC";
 
-      if($limit) $sql .= " LIMIT 20;";
+      if ($limit) $sql .= " LIMIT 50";
 
       $query = $this->query($sql);
       $query->execute();
@@ -180,6 +185,31 @@ class ProjectModel extends Model
       return $query->execute([$id]);
     } catch (PDOException $e) {
       error_log("ProjectModel::delete() -> " . $e->getMessage());
+      return false;
+    }
+  }
+
+  public function saveData($data)
+  {
+    try {
+      $query = $this->prepare("INSERT INTO projects (iduser, idcategory, name, description, slug, url, link, agency_sponsor, fields_of_science, participation_tasks, geographic_scope, keywords) VALUES (:iduser, :idcategory, :name, :description, :slug, :url, :link, :agency_sponsor, :fields_of_science, :participation_tasks, :geographic_scope, :keywords);");
+
+      $query->bindValue(':iduser', $data['iduser'], PDO::PARAM_INT);
+      $query->bindValue(':idcategory', $data['idcategory'], PDO::PARAM_STR);
+      $query->bindValue(':name', $data['name'], PDO::PARAM_STR);
+      $query->bindValue(':description', $data['description'], PDO::PARAM_STR);
+      $query->bindValue(':slug', $data['slug'], PDO::PARAM_STR);
+      $query->bindValue(':url', $data['url'], PDO::PARAM_STR);
+      $query->bindValue(':link', $data['link'], PDO::PARAM_STR);
+      $query->bindValue(':agency_sponsor', $data['agency_sponsor'], PDO::PARAM_STR);
+      $query->bindValue(':fields_of_science', $data['fields_of_science'], PDO::PARAM_STR);
+      $query->bindValue(':participation_tasks', $data['participation_tasks'], PDO::PARAM_STR);
+      $query->bindValue(':geographic_scope', $data['geographic_scope'], PDO::PARAM_STR);
+      $query->bindValue(':keywords', $data['keywords'], PDO::PARAM_STR);
+
+      return $query->execute();
+    } catch (PDOException $e) {
+      error_log('ProjectModel::saveData() -> ' . $e->getMessage());
       return false;
     }
   }
