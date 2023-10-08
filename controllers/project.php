@@ -23,20 +23,16 @@ class Project extends Session
 
     require_once 'models/commentModel.php';
     $this->commentModel = new CommentModel;
+
+    require_once 'models/participantModel.php';
+    $this->participantModel = new ParticipantModel;
   }
 
   public function render()
   {
     $this->view->render('project/index', [
       "projects" => $this->model->getAll("p.iduser", $this->userId),
-    ]);
-  }
-
-  public function create()
-  {
-    $this->view->render('project/create', [
       "categories" => $this->categoryModel->getAll(),
-      "action" => "save",
     ]);
   }
 
@@ -86,16 +82,31 @@ class Project extends Session
     if (!isset($params)) new Errores;
 
     $slug = $params[0];
-    $project = $this->model->get($slug, "slug", $this->userId);
+    $project = $this->model->get($slug, "p.slug", $this->userId);
 
     if (empty($project)) new Errores;
 
-    if ($project['participant'] === $this->userId) {
-      $text = 'Participating <i class="fas fa-check"></i>';
-      $textId = "";
-    } else {
-      $textId = "applyProject";
-      $text = 'Apply to project <i class="fas fa-plus"></i>';
+    $participants = $this->participantModel->getAll($project['id']);
+
+    $arrEstado = [
+      "0" => ["class" => "info", "text" => "Waiting <i class='fas fa-spinner'></i>"],
+      "1" => ["class" => "danger", "text" => "Leave Project <i class='fas fa-times'></i>"],
+      "2" => ["class" => "primary", "text" => "Apply to project <i class='fas fa-plus'></i>"],
+    ];
+    $class = $arrEstado["2"]["class"];
+    $text = $arrEstado["2"]["text"];
+    $textId = "applyProject";
+
+    if (!empty($participants)) {
+      $ids = array_column($participants, "iduser");
+
+      if (($key = array_search($this->userId, $ids)) !== false) {
+        $foundUser = $participants[$key];
+        $estado = $foundUser["status"];
+        $class = $arrEstado[$estado]["class"];
+        $text = $arrEstado[$estado]["text"];
+        $textId = "";
+      }
     }
 
     $this->view->render('project/show', [
@@ -103,12 +114,9 @@ class Project extends Session
       "comments" => $this->commentModel->getAll("c.idproject", $project['id']),
       "text" => $text,
       "textId" => $textId,
+      "class" => $class,
+      "participants" => $participants
     ]);
-  }
-
-  public function edit($params)
-  {
-    $this->view->render('project/edit', ['' => '']);
   }
 
   public function getLastProjects()

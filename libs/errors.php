@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Errors class for error messages
+ */
 class Errors
 {
   const ERROR_LOGIN_AUTHENTICATE          = "11c37cfab311fdbe2";

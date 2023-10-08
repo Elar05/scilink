@@ -34,9 +34,11 @@
                 <img src="<?= URL . $project['url'] ?>" alt="Project Image" class="card-img-top">
                 <div class="card-body">
                   <h5 class="card-title"><?= $project['name'] ?></h5>
-                  <p class="card-text">Likes: <?= $project['likes'] ?> - Comments: <?= $project['comments'] ?></p>
-                  <p class="card-text"><span class="badge bg-secondary text-decoration-none link-light"><?= $project['category'] ?></span></p>
-                  <a class="btn btn-info" href="<?= URL . 'project/show/' . $project['slug'] ?>">Details <i class="fas fa-share"></i></a>
+                  <p class="card-text">Likes: <?= $project['likes'] ?> - Comments: <?= $project['comments'] ?> - Members: <?= $project['participants'] ?></p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <p class="card-text m-0 p-0"><span class="badge bg-secondary text-decoration-none link-light text-uppercase fs-7"><?= $project['category'] ?></span></p>
+                    <a class="btn btn-info" href="<?= URL . 'project/show/' . $project['slug'] ?>">Details <i class="fas fa-share"></i></a>
+                  </div>
                 </div>
               </div>
             </div>

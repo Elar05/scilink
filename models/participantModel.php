@@ -25,12 +25,18 @@ class ParticipantModel extends Model
 
   /**
    * *`Get all Participant`*
+   * @param int $idproject
    */
-  public function getAll(): ?array
+  public function getAll($idproject): ?array
   {
     try {
-      $query = $this->query("SELECT * FROM participants;");
-      $query->execute();
+      $query = $this->prepare(
+        "SELECT p.*, u.names AS user
+        FROM participants p
+        INNER JOIN users u ON p.iduser = u.id
+        WHERE p.idproject = ?;"
+      );
+      $query->execute([$idproject]);
       return $query->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
       error_log("ParticipantModel::getAll() -> " . $e->getMessage());

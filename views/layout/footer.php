@@ -1,7 +1,68 @@
 <!-- Footer-->
-<footer class="py-4 bg-dark">
-  <div class="container">
-    <p class="m-0 text-center text-white">SciLink 2023</p>
+<footer class="mt-5 py-4">
+  <div class="container d-flex justify-content-center">
+    <ul class="list-footer">
+      <li>
+        <h1 class="title-footer">Página</h1>
+      </li>
+      <li>
+        <a href='index.html' class="foot-link">Inicio</a>
+      </li>
+      <li>
+        <a href='/login.html' class="foot-link">Inicia Sesión</a>
+      </li>
+      <li>
+        <a href='/register.html' class="foot-link">Regístrate</a>
+      </li>
+    </ul>
+    <ul class="list-footer">
+      <li>
+        <h1 class="title-footer">Líder y Admin</h1>
+      </li>
+      <li>
+        <a href='#' class="foot-link">Isis Vera</a>
+      </li>
+      <li>
+        <a href='#' class="foot-link">Giovani Choquecota</a>
+      </li>
+    </ul>
+    <ul class="list-footer">
+      <li>
+        <h1 class="title-footer">FrontEnd</h1>
+      </li>
+      <li>
+        <a href='#' class="foot-link">Dylan Astete</a>
+      </li>
+      <li>
+        <a href='#' class="foot-link">Danny Castillo</a>
+      </li>
+    </ul>
+    <ul class="list-footer">
+      <li>
+        <h1 class="title-footer">Backend</h1>
+      </li>
+      <li>
+        <a href='#' class="foot-link">Elar López</a>
+      </li>
+      <li>
+        <a href='#' class="foot-link">Ruben Carvajal</a>
+      </li>
+    </ul>
+
+    <div class="vl"></div>
+
+    <ul class="list-footer">
+      <h1 class="logo title-footer">Sci<span>Link.</span></h1>
+      <p class="foot-link">Conectando Mentes Brillantes en Ciencia y Tecnología</p>
+      <li class="social-container">
+        <img class="social" src="<?= URL ?>public/img/Facebook.svg" alt="Facebook" />
+        <img class="social" src="<?= URL ?>public/img/Instagram.svg" alt="Instagram" />
+        <img class="social" src="<?= URL ?>public/img/Linkedin.svg" alt="Linkedin" />
+      </li>
+      <li>
+        <p class="foot-link">SciLink 2023</p>
+      </li>
+    </ul>
   </div>
 </footer>
 

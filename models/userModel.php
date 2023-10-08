@@ -94,7 +94,7 @@ class UserModel extends Model
   {
     try {
       $pdo = $this->connect();
-      $query = $pdo->prepare("INSERT INTO users (idtype_user, names, email, password, picture, provider) VALUES (:idtype_user, :names, :email, :password, :picture, :provider);");
+      $query = $pdo->prepare("INSERT INTO users (idtype_user, names, email, password, picture, provider, slug) VALUES (:idtype_user, :names, :email, :password, :picture, :provider, :slug);");
 
       $password = $data['password'] ? $this->hash($data['password']) : NULL;
       $query->bindParam(':idtype_user', $data['idtype_user'], PDO::PARAM_INT);
@@ -103,6 +103,7 @@ class UserModel extends Model
       $query->bindParam(':password', $password, PDO::PARAM_STR);
       $query->bindParam(':picture', $data['picture'], PDO::PARAM_STR);
       $query->bindParam(':provider', $data['provider'], PDO::PARAM_STR);
+      $query->bindParam(':slug', $data['slug'], PDO::PARAM_STR);
 
       $query->execute();
       return $pdo->lastInsertId();

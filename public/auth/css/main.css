@@ -513,18 +513,4 @@ iframe {
   text-decoration: none;
 }
 
-.alert-danger {
-  background-color: #ffb1b7;
-  border: 1px solid #f8021b;
-  color: #bd0417;
-  padding: 10px;
-  border-radius: 4px;
-}
 
-.alert-success {
-  background-color: #d4edda;
-  border: 1px solid #11a033;
-  color: #155724;
-  padding: 10px;
-  border-radius: 4px;
-}

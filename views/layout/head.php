@@ -11,4 +11,4 @@
   
   <link rel="icon" href="<?= URL ?>public/img/logo.png">
 
-  <link rel="stylesheet" href="<?= URL ?>public/css/style2.css" />
+  <link rel="stylesheet" href="<?= URL ?>public/css/styles.css" />

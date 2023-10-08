@@ -15,6 +15,12 @@ body {
   font-family: sans-serif;
 }
 
+.div-center {
+  display: flex;
+  justify-content: center;
+  margin: 2.5rem 0;
+}
+
 .logo {
   color: var(--color-white);
   font-size: 30px;
@@ -209,4 +215,55 @@ body {
 
 .flexbox-item button:hover {
   background-color: #0056b3;
+}
+
+.button-project {
+  background-color: #264163;
+  color: white;
+  font-weight: bold;
+}
+
+.button-project:hover {
+  background-color: #22364f;
+  color: white;
+}
+
+/* Footer */
+footer {
+  background-color: #141d28;
+}
+
+.list-footer {
+  display: flex;
+  flex-direction: column;
+  max-width: 15rem;
+  margin: 0 4rem;
+}
+
+.title-footer {
+  font-size: 2rem;
+  color: #e8e8e8;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.foot-link {
+  margin: -4px 0;
+  color: #e0e0e0;
+  text-align: center;
+}
+
+.vl {
+  border-left: 3px solid white;
+  height: 210px;
+  margin: 0 2rem;
+}
+
+.social-container {
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.social {
+  margin: 0 1rem;
 }

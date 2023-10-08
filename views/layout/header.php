@@ -20,6 +20,7 @@
       <li class="ps-4"><a href="#"><?= $this->user['name'] ?> <i class="fas fa-caret-down"></i></a>
         <div class="dropdown-menu">
           <ul>
+            <li><a href="<?= URL ?>profile/in/<?= $this->user['slug'] ?>">Profile</a></li>
             <li><a href="<?= URL ?>logout">Logout</a></li>
           </ul>
         </div>

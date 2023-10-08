@@ -26,7 +26,7 @@ class Register extends Session
       $this->redirect('register', ["error" => Errors::ERROR_REGISTER_USER_EMPTY]);
     }
 
-    if (!preg_match("/^[\p{L}]+$/u", $_POST['names'])) {
+    if (!preg_match("/[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$/", $_POST['names'])) {
       $this->redirect('register', ["error" => Errors::ERROR_REGISTER_USER_NAMES]);
     }
     // if (strlen($_POST['password']) < 8) {
@@ -42,7 +42,8 @@ class Register extends Session
     if (!preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $_POST['email'])) {
       $this->redirect('register', ["error" => Errors::ERROR_REGISTER_USER_EMAIL]);
     }
-
+    $hash = hash('sha256', $_POST['email']);
+    // $hashShort = substr($hash, 0, 8);
     $data = [
       "idtype_user" => 2,
       "names" => $_POST['names'],
@@ -50,6 +51,7 @@ class Register extends Session
       "password" => $_POST['password'],
       "picture" => NULL,
       "provider" => NULL,
+      "slug" => $this->generateSlug($_POST['names']) . "-$hash",
     ];
     if ($this->userModel->save($data)) {
       $this->redirect('', ["success" => Success::SUCCESS_LOGIN_NEW_USER]);

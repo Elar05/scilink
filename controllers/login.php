@@ -50,6 +50,8 @@ class Login extends Session
       $this->initialize($user, ["success" => "Bienvenido"]);
     }
 
+    $hash = hash('sha256', $_POST['email']);
+    // $hashShort = substr($hash, 0, 8);
     $data = [
       "idtype_user" => 2,
       "names" => $_POST['names'],
@@ -58,6 +60,7 @@ class Login extends Session
       "phone" => NULL,
       "picture" => $_POST['picture'],
       "provider" => explode(".", $_POST['provider'])[0],
+      "slug" => $this->generateSlug($_POST['names']) . "-$hash",
     ];
     if ($this->userModel->save($data)) {
       $user = $this->userModel->get($data['email'], "email");

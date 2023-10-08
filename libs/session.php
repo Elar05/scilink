@@ -8,6 +8,7 @@ class Session extends Controller
   public $userId;
   public $userType;
   public $url;
+  public $slug;
 
   public function __construct($url)
   {
@@ -16,6 +17,7 @@ class Session extends Controller
     $this->userType = $_SESSION["userType"] ?? 0;
     $this->userId = $_SESSION["userId"] ?? "";
     $this->user = $_SESSION["user"] ?? "";
+    $this->slug = $_SESSION["slug"] ?? "";
 
     $this->url = $url;
 
@@ -25,14 +27,17 @@ class Session extends Controller
 
     $this->validateSession();
 
-    parent::__construct(["id" => $this->userId, "name" => $this->user, "userType" => $this->userType]);
+    parent::__construct([
+      "id" => $this->userId, "name" => $this->user,
+      "userType" => $this->userType, "slug" => $this->slug
+    ]);
   }
 
   public function sites()
   {
     return [
       "0" => [
-        'login', 'register'
+        'login', 'register', 'reset'
       ],
       "1" => [
         "default" => 'admin',
@@ -40,7 +45,7 @@ class Session extends Controller
       ],
       "2" => [
         "default" => 'user',
-        'main', 'logout', 'project', 'participant',
+        'main', 'logout', 'project', 'participant', 'comment', 'profile'
       ],
     ];
   }
@@ -71,6 +76,7 @@ class Session extends Controller
     $_SESSION["userId"] = $user['id'];
     $_SESSION["userType"] = $user['idtype_user'];
     $_SESSION["user"] = $user['names'];
+    $_SESSION["slug"] = $user['slug'];
 
     $this->redirect($this->defaultSite);
     // $this->redirect($this->sites[$_SESSION["userType"]]['default']);

@@ -18,28 +18,39 @@ $comments = $this->d['comments'];
 
           <div class="d-flex justify-content-between align-items-center">
             <!-- Post categories-->
-            <span class="badge bg-secondary text-decoration-none link-light"><?= $project['category'] ?></span>
+            <span class="badge bg-secondary text-decoration-none link-light text-uppercase fs-6"><?= $project['category'] ?></span>
 
-            <button class="btn btn-success" id="<?= $this->d['textId'] ?>" data-project="<?= $project['id'] ?>">
-              <?= $this->d['text'] ?>
-            </button>
+            <?php if ($project['iduser'] != $this->user['id']) : ?>
+              <button class="btn btn-<?= $this->d['class'] ?>" id="<?= $this->d['textId'] ?>" data-project="<?= $project['id'] ?>">
+                <?= $this->d['text'] ?>
+              </button>
+            <?php endif; ?>
           </div>
         </header>
         <!-- Preview image figure-->
         <figure class="mb-4"><img class="img-fluid rounded" src="<?= URL . $project['url'] ?>" alt="Project Image" /></figure>
         <!-- Post content-->
-        <section class="mb-5">
+        <section class="">
           <p class="fs-5 mb-4">
             <?= $project['description'] ?>
           </p>
 
           <h2>Particpants</h2>
+          <ul>
+            <li class='fs-4'>
+              <a href='' class='text-decoration-none'><?= $project['user'] ?> (Owner)</a>
+            </li>
+            </li>
+            <?php
+            foreach ($this->d['participants'] as $participant) {
+              echo "<li class='fs-4'><a href='' class='text-decoration-none'>$participant[user]</a></li>";
+            }
+            ?>
+          </ul>
 
-          <p class="fs-5 mb-4"><a href="">Link de su perfil</a></p>
+          <p>Likes: <span id="likes"><?= $project['likes'] ?></span></p>
 
-          <p>Likes: <?= $project['likes'] ?></p>
-
-          <p>Comments: <?= $project['comments'] ?></p>
+          <p>Comments: <span id="comments"> <?= $project['comments'] ?></span></p>
         </section>
       </article>
       <!-- Comments section-->
@@ -47,12 +58,12 @@ $comments = $this->d['comments'];
         <div class="card bg-light">
           <div class="card-body">
             <!-- Comment form-->
-            <form class="mb-4" action="<?= URL ?>comment/add">
+            <form class="mb-4" id="form_comment" action="<?= URL ?>comment/add" method="post">
               <input type="hidden" name="project" value="<?= $project['id'] ?>">
-              <textarea class="form-control" rows="3" placeholder="Leave a comment"></textarea>
+              <textarea class="form-control" name="comment" rows="3" placeholder="Leave a comment"></textarea>
 
               <div class="text-end">
-                <button class="mt-2 btn btn-primary" id="addComment">Comment <i class="fas fa-plus"></i></button>
+                <button type="submit" class="mt-2 btn btn-primary">Comment <i class="fas fa-plus"></i></button>
               </div>
             </form>
             <!-- Single comment-->
@@ -60,7 +71,7 @@ $comments = $this->d['comments'];
               <?php
               if (count($comments) > 0) :
                 foreach ($comments as $comment) : ?>
-                  <div class="d-flex">
+                  <div class="d-flex mb-3">
                     <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                     <div class="ms-3">
                       <div class="fw-bold"><?= $comment['user'] ?></div>
