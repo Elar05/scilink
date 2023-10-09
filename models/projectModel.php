@@ -21,10 +21,12 @@ class ProjectModel extends Model
         (SELECT COUNT(id) FROM likes WHERE idproject = p.id) AS likes,
         (SELECT COUNT(id) FROM comments WHERE idproject = p.id) AS comments,
         (SELECT name FROM categories WHERE id = p.idcategory) AS category,
-        (SELECT names FROM users WHERE id = p.iduser) AS user,
-        (SELECT picture FROM users WHERE id = p.iduser) AS url_user,
-        (SELECT slug FROM users WHERE id = p.iduser) AS slug_user
+        u.names AS user,
+        u.picture AS url_user,
+        u.slug AS slug_user,
+        u.email
         FROM projects p
+        INNER JOIN users u ON p.iduser = u.id
         WHERE $colum = :value;"
       );
       $query->execute(["value" => $value]);

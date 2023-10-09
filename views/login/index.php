@@ -9,10 +9,28 @@
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
 
+	<link rel="stylesheet" href="<?= URL ?>public/css/styles.css" />
 	<link rel="stylesheet" href="<?= URL ?>public/css/auth.css" />
 </head>
 
 <body>
+	<div class="menu-bar">
+		<a href="<?= URL ?>invite" class="text-decoration-none">
+			<h1 class="logo p-0 m-0"> Sci<span>Link.</span></h1>
+		</a>
+
+		<ul class="p-0 m-0">
+			<li class="ps-4"><a href="#">User <i class="fas fa-caret-down"></i></a>
+				<div class="dropdown-menu">
+					<ul>
+						<li><a href="<?= URL ?>register">Register</a></li>
+						<li><a href="<?= URL ?>">Login</a></li>
+					</ul>
+				</div>
+			</li>
+		</ul>
+	</div>
+
 	<div class="login-container">
 		<form class="login-form" action="<?= URL ?>login/auth" method="post">
 			<h1 class="login-title">Login</h1>

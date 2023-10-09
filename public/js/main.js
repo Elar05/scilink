@@ -41,7 +41,7 @@ function filterProjects() {
       if (data.length > 0) {
         data.forEach(function (project) {
           let img =
-            project.url != ""
+            project.url != null
               ? `<img src="${urlBase}${project.url}" alt="Project Image" class="card-img-top">`
               : "";
           projects.innerHTML += `<div class="col">
@@ -59,7 +59,7 @@ function filterProjects() {
                 <p class="text-card">Category: <span class="badge bg-secondary text-decoration-none link-light text-uppercase">Science</span></p>
 
                 <div class="d-grid pt-2">
-                  <a class="btn button-project text-uppercase" href="${urlBase}project/show/${project.slug}">Details</a>
+                  <a class="btn button-project text-uppercase" href="${urlBase}${last}/show/${project.slug}">Details</a>
                 </div>
               </div>
             </div>

@@ -9,9 +9,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-body {
   font-family: sans-serif;
 }
 
@@ -69,7 +66,7 @@ body {
 }
 
 .fas {
-  float: right;
+  /* float: right; */
   margin-left: 10px;
   padding-top: 3px;
 }
@@ -324,4 +321,8 @@ footer {
 
 .integrante-pais {
   color: #767676;
+}
+
+.text-project {
+  color: #d43e0c;
 }

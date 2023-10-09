@@ -2,7 +2,7 @@
 
 <body>
   <div class="menu-bar">
-    <a href="<?= URL ?>" class="text-decoration-none">
+    <a href="<?= URL ?>invite" class="text-decoration-none">
       <h1 class="logo p-0 m-0"> Sci<span>Link.</span></h1>
     </a>
 

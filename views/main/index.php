@@ -53,6 +53,7 @@
                     <span>Comments: <?= $project['comments'] ?></span>
                     <span>Members: <?= $project['participants'] ?></span>
                   </div>
+                  <p class="text-card">Status: Active - recruiting volunteers</p>
                   <p class="text-card">Category: <span class="badge bg-secondary text-decoration-none link-light text-uppercase"><?= $project['category'] ?></span></p>
 
                   <div class="d-grid pt-2">

@@ -6,7 +6,7 @@ $comments = $this->d['comments'];
 ?>
 <div class="container mt-3">
   <div class="row">
-    <div class="col-lg-8 mx-auto">
+    <div class="col-12 col-lg-10 mx-auto">
       <!-- Post content-->
       <article>
         <!-- Post header-->
@@ -34,11 +34,35 @@ $comments = $this->d['comments'];
           <?php endif; ?>
         </figure>
         <!-- Post content-->
-        <section class="">
+        <section>
+          <!-- Description -->
           <p class="fs-5 mb-4">
             <?= $project['description'] ?>
           </p>
 
+          <!-- Info -->
+          <div class="row">
+            <div class="col-md-8 col-12">
+              <p class="fs-5"><span class="text-project">Project URL:</span> <a target="_blank" href="<?= $project['link'] ?>"><?= $project['link'] ?></a></p>
+
+              <p class="fs-5"><span class="text-project">Geographic Scope:</span> <?= $project['geographic_scope'] ?></p>
+
+              <p class="fs-5"><span class="text-project">Project Status:</span> Active - recruiting volunteers</p>
+
+              <p class="fs-5"><span class="text-project">Participation Tasks:</span> <?= $project['created_at'] ?></p>
+
+              <p class="fs-5"><span class="text-project">Start Date:</span> <?= $project['created_at'] ?></p>
+
+              <p class="fs-5"><span class="text-project">Project Contact:</span> <?= $project['email'] ?></p>
+            </div>
+            <div class="col-md-4 col-12">
+              <p class="fs-5"><span class="text-project">Federal Government Sponsor:</span> <?= $project['agency_sponsor'] ?></p>
+
+              <p class="fs-5"><span class="text-project">Fields of Science:</span> <?= $project['fields_of_science'] ?></p>
+            </div>
+          </div>
+
+          <!-- Author -->
           <div class="integrantes-container">
             <div class="integrante-card">
               <?php
