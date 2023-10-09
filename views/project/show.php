@@ -74,7 +74,7 @@ $comments = $this->d['comments'];
         <div class="integrantes-container">
           <div class="integrante-card">
             <?php
-            $url_user = "public/img/profile_user.jpg";
+            $url_user = "public/img/user_default.png";
             if ($project['url_user'] != "") {
               $url_user = $project['url_user'];
             }
@@ -104,7 +104,7 @@ $comments = $this->d['comments'];
     <div class="integrantes-container">
       <div class="integrante-card">
         <?php
-        $url_user = "public/img/profile_user.jpg";
+        $url_user = "public/img/user_default.png";
         if ($project['url_user'] != "") {
           $url_user = $project['url_user'];
         }
@@ -118,7 +118,7 @@ $comments = $this->d['comments'];
 
       <?php foreach ($this->d['participants'] as $participant) : ?>
         <?php
-        $url_user = "public/img/profile_user.jpg";
+        $url_user = "public/img/user_default.png";
         if ($participant['url'] != "") {
           $url_user = $participant['url'];
         }

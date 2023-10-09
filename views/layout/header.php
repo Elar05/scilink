@@ -2,7 +2,7 @@
 
 <body>
   <div class="menu-bar">
-    <a href="<?= URL ?>invite" class="text-decoration-none">
+    <a href="<?= URL ?>" class="text-decoration-none">
       <h1 class="logo p-0 m-0"> Sci<span>Link.</span></h1>
     </a>
 
@@ -23,7 +23,7 @@
           <div class="dropdown-menu">
             <ul>
               <li><a href="<?= URL ?>register">Register</a></li>
-              <li><a href="<?= URL ?>">Login</a></li>
+              <li><a href="<?= URL ?>login">Login</a></li>
             </ul>
           </div>
         </li>

@@ -36,6 +36,7 @@
                     <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="#equipo">Team</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?= URL ?>invite">Marketplace</a></li>
+                    <li class="nav-item"><a class="nav-link" target="_blank" href="https://github.com/Elar05/scilink">GitHub</a></li>
                 </ul>
             </div>
         </div>

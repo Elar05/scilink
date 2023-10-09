@@ -5,7 +5,7 @@
 <header class="py-1 bg-image-full" style="background-image: url('<?= URL ?>public/img/fondo_user.jpeg')">
   <div class="text-center my-5">
     <?php
-    $url = $this->d['user']['picture'] ?? "public/img/profile_user.jpg";
+    $url = $this->d['user']['picture'] ?? "public/img/user_default.png";
     ?>
     <img class="img-fluid rounded-circle mb-4 integrante-img" src="<?= URL . $url ?>" alt="Profile user" />
     <h1 class="text-white fs-3 fw-bolder"><?= $this->d['user']['names'] ?></h1>
