@@ -38,14 +38,17 @@ class Project extends Session
 
   public function save()
   {
-    if (empty($_POST['category']) or empty($_POST['name']) or empty($_POST['description'])) {
+    if (
+      empty($_POST['category']) or empty($_POST['name']) or empty($_POST['description']) or
+      empty($_POST['agency']) or empty($_POST['fields']) or empty($_POST['geographic'])
+    ) {
       $this->response(["error" => "Missing parameters"]);
     }
 
     $slug = $this->generateSlug($_POST['name']);
 
     $url = NULL;
-    if (!empty($_FILES["image"])) {
+    if (!empty($_FILES["image"]['name'])) {
       $image = $_FILES["image"];
 
       $types = ["jpg", "png", "webp", "jpeg"];
@@ -69,7 +72,11 @@ class Project extends Session
       "name" => $_POST['name'],
       "description" => $_POST['description'],
       "slug" => $slug,
-      "url" => $url
+      "url" => $url,
+      "link" => $_POST["link"] ?? NULL,
+      "agency_sponsor" => $_POST["agency"],
+      "fields_of_science" => $_POST["fields"],
+      "geographic_scope" => $_POST["geographic"],
     ])) {
       $this->response(['success' => "Project registered successfully"]);
     } else {
@@ -91,7 +98,7 @@ class Project extends Session
     $arrEstado = [
       "0" => ["class" => "info", "text" => "Waiting <i class='fas fa-spinner'></i>"],
       "1" => ["class" => "danger", "text" => "Leave Project <i class='fas fa-times'></i>"],
-      "2" => ["class" => "primary", "text" => "Apply to project <i class='fas fa-plus'></i>"],
+      "2" => ["class" => "primary", "text" => "Join to project <i class='fas fa-plus'></i>"],
     ];
     $class = $arrEstado["2"]["class"];
     $text = $arrEstado["2"]["text"];

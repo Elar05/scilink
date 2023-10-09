@@ -37,7 +37,7 @@ class Session extends Controller
   {
     return [
       "0" => [
-        'login', 'register', 'reset', 'invite',
+        'login', 'register', 'reset', 'invite', 'landing'
       ],
       "1" => [
         "default" => 'admin',

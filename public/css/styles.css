@@ -278,7 +278,7 @@ footer {
   gap: 1.2rem;
 }
 
-.datos-usuario input {
+.datos-input {
   padding: 0.4rem 0.5rem;
   width: 20rem;
 }
@@ -325,4 +325,97 @@ footer {
 
 .text-project {
   color: #d43e0c;
+}
+
+.info-container {
+  margin: 2rem 20%;
+}
+
+.info-container .nav-link {
+  text-decoration: none;
+  color: #141d28;
+}
+
+.tab-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.nombre-proyecto {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.descripcion-proyecto {
+  font-size: 1rem;
+  text-align: center;
+}
+.project-title1 {
+  color: #1e2125;
+  font-weight: bold;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.project-title2 {
+  color: red;
+  font-weight: bold;
+  font-size: 1.5rem;
+  text-align: center;
+}
+.project-desc {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+/* Skills */
+.custom-checkbox-list {
+  list-style: none;
+  padding: 0;
+}
+
+.custom-checkbox-list li {
+  margin: 5px 0;
+}
+
+.custom-checkbox {
+  display: none;
+}
+
+.custom-checkbox + label {
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+}
+
+.custom-checkbox + label:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #000;
+  background-color: #fff;
+}
+
+.custom-checkbox:checked + label:before {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.custom-checkbox + label:after {
+  content: "\2713";
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  color: #fff;
+  font-size: 16px;
+  display: none;
+}
+
+.custom-checkbox:checked + label:after {
+  display: block;
 }

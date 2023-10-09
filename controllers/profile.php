@@ -4,6 +4,7 @@ class Profile extends Session
 {
   public $userModel;
   public $projectModel;
+  public $skillModel;
 
   public function __construct($url)
   {
@@ -14,6 +15,9 @@ class Profile extends Session
 
     require_once 'models/projectModel.php';
     $this->projectModel = new ProjectModel;
+
+    require_once 'models/skillModel.php';
+    $this->skillModel = new SkillModel;
   }
 
   public function in($params)
@@ -27,7 +31,8 @@ class Profile extends Session
     $projects = $this->projectModel->getAll("p.iduser", $user['id']);
 
     $this->view->render('profile/index', [
-      "user" => $user, "projects" => $projects
+      "user" => $user, "projects" => $projects,
+      "skills" => $this->skillModel->getAll()
     ]);
   }
 
@@ -59,6 +64,10 @@ class Profile extends Session
       } else {
         $this->response(["error" => "An error occurred while uploading the project image"]);
       }
+    }
+    if (!empty($_POST['skills'])) {
+      $skills = json_encode($_POST['skills']);
+      $this->userModel->update(["skills" => $skills], $this->userId);
     }
 
     $this->response(['success' => 'Changes saved']);

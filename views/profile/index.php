@@ -12,49 +12,80 @@
   </div>
 </header>
 
-<section class="datos-personales mb-5">
-  <form class="datos-usuario" action="<?= URL ?>profile/update" id="form_profile" method="post">
-    <p style="font-size: 24px; text-align: center;">Tus datos personales</p>
+<?php if (isset($_SESSION)) : ?>
+  <section class="datos-personales">
+    <form class="datos-usuario" action="<?= URL ?>profile/update" id="form_profile" method="post">
+      <p style="font-size: 24px; text-align: center;">Tus datos personales</p>
 
-    <div id="alertMessage"></div>
+      <div id="alertMessage"></div>
 
-    <div class="form-input">
-      <label>Nombres</label>
+      <div class="form-input">
+        <label>Names</label>
+      </div>
+      <input type="text" class="datos-input" name="name" value="<?= $this->d['user']['names'] ?>" />
+
+      <div class="form-input">
+        <label>Phone Number</label>
+      </div>
+      <input type="text" class="datos-input" name="phone" value="<?= $this->d['user']['phone'] ?>" />
+
+      <div class="form-input">
+        <label>Skills</label>
+      </div>
+      <div class="list-group">
+        <?php foreach ($this->d['skills'] as $skill) : ?>
+          <div class="list-group-item checkbox">
+            <label>
+              <input type="checkbox" name="skills[]" value="<?= $skill['name'] ?>"> <?= $skill['name'] ?>
+            </label>
+          </div>
+        <?php endforeach; ?>
+      </div>
+
+      <!-- <div class="form-input">
+        <label>Correo electrónico</label>
+      </div>
+      <input type="text" name="email" placeholder="example@mail.com" />
+
+      <div class="form-input">
+        <label>Contraseña</label>
+      </div>
+      <input type="password" name="password" placeholder="j2!qsi!@a" /> -->
+
+      <div class="form-input">
+        <label>Descripción</label>
+      </div>
+      <textarea class="datos-input" name="description" id="description" cols="38" rows="5"><?= $this->d['user']['description'] ?></textarea>
+
+      <div class="form-input">
+        <label for="image">Image Profile</label>
+      </div>
+      <input type="file" class="form-control datos-input" name="image" id="image">
+
+      <div class="d-grid">
+        <button type="submit" class="btn button-project">Save changes</button>
+      </div>
+    </form>
+  </section>
+<?php else : ?>
+  <div class="container mt-5">
+    <h2 class="text-center fw-bold">Information</h2>
+
+    <p class="text-center fs-4">Email: <?= $this->d['user']['email'] ?></p>
+    <p class="text-center fs-4">Skills:</p>
+    <div class="text-center my-3">
+      <?php 
+      $skills = json_decode($this->d['user']['skills']);
+      foreach ($skills as $skill) : ?>
+        <span class="badge bg-secondary text-decoration-none link-light text-uppercase"><?= $skill ?></span>
+      <?php endforeach; ?>
     </div>
-    <input type="text" name="name" value="<?= $this->d['user']['names'] ?>" />
+    <p class="text-center fs-4"><?= $this->d['user']['description'] ?></p>
+  </div>
+<?php endif; ?>
 
-    <div class="form-input">
-      <label>Celular</label>
-    </div>
-    <input type="text" name="phone" value="<?= $this->d['user']['phone'] ?>" />
-
-    <!-- <div class="form-input">
-      <label>Correo electrónico</label>
-    </div>
-    <input type="text" name="email" placeholder="example@mail.com" />
-
-    <div class="form-input">
-      <label>Contraseña</label>
-    </div>
-    <input type="password" name="password" placeholder="j2!qsi!@a" /> -->
-
-    <div class="form-input">
-      <label>Descripción</label>
-    </div>
-    <textarea name="description" id="description" cols="38" rows="5"><?= $this->d['user']['description'] ?></textarea>
-
-    <div class="form-input">
-      <label for="image">Image Profile</label>
-    </div>
-    <input type="file" class="form-control" name="image" id="image">
-
-    <div class="d-grid">
-      <button type="submit" class="btn button-project">Save changes</button>
-    </div>
-  </form>
-</section>
-
-<div class="container">
+<div class="container mt-5">
+  <h2 class="text-center fw-bold">Projects</h2>
   <div class="row g-4 mt-0" id="contentProjects">
     <?php foreach ($this->d['projects'] as $project) : ?>
       <div class="col-4">
@@ -84,5 +115,5 @@
 </div>
 
 <?php require_once 'views/layout/footer.php'; ?>
-<script src="<?= URL ?>public/js/profile.js"></script>
+<script src="<?= URL ?>public/js/profile.js?v=1.0"></script>
 <?php require_once 'views/layout/foot.php'; ?>

@@ -128,7 +128,7 @@ class ProjectModel extends Model
   public function save($data)
   {
     try {
-      $query = $this->prepare("INSERT INTO projects (iduser, idcategory, name, description, slug, url) VALUES (:iduser, :idcategory, :name, :description, :slug, :url);");
+      $query = $this->prepare("INSERT INTO projects (iduser, idcategory, name, description, slug, url, link, agency_sponsor, fields_of_science, geographic_scope) VALUES (:iduser, :idcategory, :name, :description, :slug, :url, :link, :agency_sponsor, :fields_of_science, :geographic_scope);");
 
       $query->bindParam(':iduser', $data['iduser'], PDO::PARAM_INT);
       $query->bindParam(':idcategory', $data['idcategory'], PDO::PARAM_STR);
@@ -136,6 +136,10 @@ class ProjectModel extends Model
       $query->bindParam(':description', $data['description'], PDO::PARAM_STR);
       $query->bindParam(':slug', $data['slug'], PDO::PARAM_STR);
       $query->bindParam(':url', $data['url'], PDO::PARAM_STR);
+      $query->bindParam(':link', $data['link'], PDO::PARAM_STR);
+      $query->bindParam(':agency_sponsor', $data['agency_sponsor'], PDO::PARAM_STR);
+      $query->bindParam(':fields_of_science', $data['fields_of_science'], PDO::PARAM_STR);
+      $query->bindParam(':geographic_scope', $data['geographic_scope'], PDO::PARAM_STR);
 
       return $query->execute();
     } catch (PDOException $e) {

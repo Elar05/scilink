@@ -71,5 +71,5 @@
 </div>
 
 <?php require_once 'views/layout/footer.php'; ?>
-<script src="<?= URL ?>public/js/main.js" type="module"></script>
+<script src="<?= URL ?>public/js/main.js?v=1.0" type="module"></script>
 <?php require_once 'views/layout/foot.php'; ?>

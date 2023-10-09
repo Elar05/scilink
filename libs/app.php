@@ -11,9 +11,9 @@ class App
     $url = explode('/', $url);
 
     if (empty($url[0])) {
-      require_once 'controllers/login.php';
-      $login = new Login('login');
-      $login->render();
+      require_once 'controllers/landing.php';
+      $landing = new Landing('landing');
+      $landing->render();
       return false;
     }
 

@@ -7,8 +7,8 @@
   <link rel="icon" href="<?= URL ?>public/img/logo.png">
   <title><?= APP ?> | Register</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
-  <link rel="stylesheet" href="<?= URL ?>public/css/styles.css" />
-  <link rel="stylesheet" href="<?= URL ?>public/css/auth.css" />
+  <link rel="stylesheet" href="<?= URL ?>public/css/styles.css?v=1.0" />
+  <link rel="stylesheet" href="<?= URL ?>public/css/auth.css?v=1.0" />
 </head>
 
 <body>
@@ -64,7 +64,7 @@
     </form>
   </div>
 
-  <script type="module" src="<?= URL ?>public/js/auth.js"></script>
+  <script type="module" src="<?= URL ?>public/js/auth.js?v=1.0"></script>
 </body>
 
 </html>

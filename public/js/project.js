@@ -21,13 +21,20 @@ if (formProject) {
           return response.json();
         })
         .then((data) => {
-          formProject.reset();
+          let alert = document.querySelector("#alertMessage");
 
           if ("success" in data) {
-            console.log("Éxito, " + data.success);
-            window.location.href = "http://localhost/scilink/project";
+            formProject.reset();
+            alert.innerHTML = `<div class="alert alert-success" role="alert">
+              <strong>${data.success}</strong>
+            </div>`;
+            setTimeout(() => {
+              window.location.href = "http://localhost/scilink/project";
+            }, 1500);
           } else {
-            console.log("Error, " + data.error);
+            alert.innerHTML = `<div class="alert alert-danger" role="alert">
+              <strong>${data.error}</strong>
+            </div>`;
           }
         })
         .catch((error) => {
